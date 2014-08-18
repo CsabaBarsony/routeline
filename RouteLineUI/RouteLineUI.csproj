@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>621d35da-027b-4ac4-b5e5-096c653263af</ProjectGuid>
+    <ProjectGuid>{CB01063C-1AD1-4A71-B64C-21467AA59797}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RouteLineUI</RootNamespace>
@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Csati\Csati.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
