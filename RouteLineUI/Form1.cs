@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
+using RouteLineUI.Classes;
 
 namespace RouteLineUI
 {
@@ -38,20 +39,30 @@ namespace RouteLineUI
             NpgsqlConnection conn = new NpgsqlConnection(connString);
             conn.Open();
 
-            NpgsqlCommand command = new NpgsqlCommand("select * from status_updates where id > 1 and id < 4", conn);
-
-            String message = "";
+            NpgsqlCommand command = new NpgsqlCommand("select * from taxi_locations where id > 1 and id < 4", conn);
+            List<Location> locations = new List<Location>();
 
             try
             {
                 NpgsqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        message += reader[i] + ";";
-                    }
-                    message += "\n";
+                    Location l = new Location();
+                    l.id = int.Parse(reader[0].ToString());
+                    l.tenantId = int.Parse(reader[1].ToString());
+                    l.userId = int.Parse(reader[2].ToString());
+                    l.trackingDeviceId = int.Parse(reader[3].ToString());
+                    l.trackingSessionId = int.Parse(reader[4].ToString());
+                    l.status = int.Parse(reader[5].ToString());
+                    l.lat = double.Parse(reader[6].ToString());
+                    l.lon = double.Parse(reader[7].ToString());
+                    l.alt = double.Parse(reader[8].ToString());
+                    l.bearing = double.Parse(reader[9].ToString());
+                    l.speed = double.Parse(reader[10].ToString());
+                    l.accuracy = double.Parse(reader[11].ToString());
+                    l.ts = reader[12].ToString();
+
+                    locations.Add(l);
                 }
             }
             finally
@@ -59,7 +70,10 @@ namespace RouteLineUI
                 conn.Close();
             }
 
-            MessageBox.Show(message);
+            foreach (Location l in locations)
+            {
+                markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), GMarkerGoogleType.green));
+            }
         }
     }
 }

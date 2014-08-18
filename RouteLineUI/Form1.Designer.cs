@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.myMap = new GMap.NET.WindowsForms.GMapControl();
-            this.testQuery = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // myMap
@@ -53,38 +52,26 @@
             this.myMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.myMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.myMap.ShowTileGridLines = false;
-            this.myMap.Size = new System.Drawing.Size(425, 428);
+            this.myMap.Size = new System.Drawing.Size(784, 428);
             this.myMap.TabIndex = 0;
             this.myMap.Zoom = 5D;
-            // 
-            // testQuery
-            // 
-            this.testQuery.AutoSize = true;
-            this.testQuery.Location = new System.Drawing.Point(443, 12);
-            this.testQuery.Name = "testQuery";
-            this.testQuery.Size = new System.Drawing.Size(20, 13);
-            this.testQuery.TabIndex = 1;
-            this.testQuery.Text = "init";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 452);
-            this.Controls.Add(this.testQuery);
             this.Controls.Add(this.myMap);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private GMap.NET.WindowsForms.GMapControl myMap;
-        private System.Windows.Forms.Label testQuery;
 
     }
 }
