@@ -1,4 +1,6 @@
-﻿using GMap.NET.WindowsForms;
+﻿using GMap.NET;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,8 +28,10 @@ namespace RouteLineUI
             myMap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
-            /*myMap.Overlays.Add(markerOverlay);
-            myMap.Overlays.Add(routesOverlay);*/
+            myMap.Overlays.Add(markerOverlay);
+            GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(46.25, 20.14), GMarkerGoogleType.green);
+            markerOverlay.Markers.Add(marker);
+            /*myMap.Overlays.Add(routesOverlay);*/
         }
     }
 }
