@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RouteLineUI.Csati;
 
 namespace RouteLineTest
 {
@@ -10,9 +9,7 @@ namespace RouteLineTest
         [TestMethod]
         public void TestMethod1()
         {
-            Csati cs = new Csati();
 
-            Assert.AreEqual(cs.sayMyName(), "majom");
         }
     }
 }
