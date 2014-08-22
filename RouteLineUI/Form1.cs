@@ -39,7 +39,7 @@ namespace RouteLineUI
             NpgsqlConnection conn = new NpgsqlConnection(connString);
             conn.Open();
 
-            NpgsqlCommand command = new NpgsqlCommand("select * from taxi_locations where id > 1 and id < 4", conn);
+            NpgsqlCommand command = new NpgsqlCommand("select * from taxi_locations where id > 5000 and id < 10000", conn);
             List<Location> locations = new List<Location>();
 
             try
@@ -72,7 +72,7 @@ namespace RouteLineUI
 
             foreach (Location l in locations)
             {
-                markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), GMarkerGoogleType.green));
+                markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), GMarkerGoogleType.lightblue_dot));
             }
         }
     }
