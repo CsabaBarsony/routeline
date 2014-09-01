@@ -19,6 +19,8 @@ namespace RouteLineUI
     {
         private GMapOverlay markerOverlay = new GMapOverlay("markers");
         private GMapOverlay routesOverlay = new GMapOverlay("routes");
+        private NpgsqlConnection conn;
+        private List<Location> locations;
 
         public Form1()
         {
@@ -31,16 +33,28 @@ namespace RouteLineUI
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
-            GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(46.25, 20.14), GMarkerGoogleType.green);
-            markerOverlay.Markers.Add(marker);
+            //GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(46.25, 20.14), GMarkerGoogleType.green);
+            //markerOverlay.Markers.Add(marker);
             /*myMap.Overlays.Add(routesOverlay);*/
 
             String connString = "Server=csabavm;Port=5432;User Id=postgres;Password=Asd..123;Database=tmcdb_production;";
-            NpgsqlConnection conn = new NpgsqlConnection(connString);
+            conn = new NpgsqlConnection(connString);
             conn.Open();
 
-            NpgsqlCommand command = new NpgsqlCommand("select * from taxi_locations where id > 5000 and id < 10000", conn);
-            List<Location> locations = new List<Location>();
+            //List<PointLatLng> points = new List<PointLatLng>();
+            //points.Add(new PointLatLng(46, 20));
+            //points.Add(new PointLatLng(46, 21));
+            //points.Add(new PointLatLng(47, 21));
+            //GMapRoute path = new GMapRoute(points, "bla");
+            //markerOverlay.Routes.Add(path);
+        }
+
+        private void buttonSqlOk_Click(object sender, EventArgs e)
+        {
+            if (textBoxSql.Text == "") return;
+
+            NpgsqlCommand command = new NpgsqlCommand(textBoxSql.Text, conn);
+            locations = new List<Location>();
 
             try
             {
@@ -67,13 +81,46 @@ namespace RouteLineUI
             }
             finally
             {
-                conn.Close();
+                //conn.Close();
             }
 
-            foreach (Location l in locations)
+            if (radioButtonMarker.Checked)
             {
-                markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), GMarkerGoogleType.lightblue_dot));
+                foreach (Location l in locations)
+                {
+                    markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), GMarkerGoogleType.lightblue_dot));
+                }
             }
+            else if (radioButtonLine.Checked)
+            {
+                List<PointLatLng> points = new List<PointLatLng>();
+
+                foreach (Location l in locations)
+                {
+                    points.Add(new PointLatLng(l.lat, l.lon));
+                }
+
+                GMapRoute path = new GMapRoute(points, "bla");
+                markerOverlay.Routes.Add(path);
+            }
+            else
+            {
+
+            }
+            
+
+            
+            
+            
+
+            
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            locations = null;
+            markerOverlay.Markers.Clear();
+            markerOverlay.Routes.Clear();
         }
     }
 }
