@@ -28,41 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.myMap = new GMap.NET.WindowsForms.GMapControl();
             this.textBoxSql = new System.Windows.Forms.TextBox();
             this.buttonSqlOk = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
             this.groupBoxDisplayType = new System.Windows.Forms.GroupBox();
-            this.radioButtonMarker = new System.Windows.Forms.RadioButton();
-            this.radioButtonLine = new System.Windows.Forms.RadioButton();
             this.radioButtonHeatMap = new System.Windows.Forms.RadioButton();
+            this.radioButtonLine = new System.Windows.Forms.RadioButton();
+            this.radioButtonMarker = new System.Windows.Forms.RadioButton();
+            this.myMap = new GMap.NET.WindowsForms.GMapControl();
             this.groupBoxDisplayType.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // myMap
-            // 
-            this.myMap.Bearing = 0F;
-            this.myMap.CanDragMap = true;
-            this.myMap.EmptyTileColor = System.Drawing.Color.Navy;
-            this.myMap.GrayScaleMode = false;
-            this.myMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.myMap.LevelsKeepInMemmory = 5;
-            this.myMap.Location = new System.Drawing.Point(239, 12);
-            this.myMap.MarkersEnabled = true;
-            this.myMap.MaxZoom = 18;
-            this.myMap.MinZoom = 2;
-            this.myMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.myMap.Name = "myMap";
-            this.myMap.NegativeMode = false;
-            this.myMap.PolygonsEnabled = true;
-            this.myMap.RetryLoadTile = 0;
-            this.myMap.RoutesEnabled = true;
-            this.myMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.myMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.myMap.ShowTileGridLines = false;
-            this.myMap.Size = new System.Drawing.Size(732, 591);
-            this.myMap.TabIndex = 0;
-            this.myMap.Zoom = 5D;
             // 
             // textBoxSql
             // 
@@ -104,6 +79,27 @@
             this.groupBoxDisplayType.TabIndex = 4;
             this.groupBoxDisplayType.TabStop = false;
             // 
+            // radioButtonHeatMap
+            // 
+            this.radioButtonHeatMap.AutoSize = true;
+            this.radioButtonHeatMap.Enabled = false;
+            this.radioButtonHeatMap.Location = new System.Drawing.Point(7, 68);
+            this.radioButtonHeatMap.Name = "radioButtonHeatMap";
+            this.radioButtonHeatMap.Size = new System.Drawing.Size(68, 17);
+            this.radioButtonHeatMap.TabIndex = 2;
+            this.radioButtonHeatMap.Text = "Heatmap";
+            this.radioButtonHeatMap.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLine
+            // 
+            this.radioButtonLine.AutoSize = true;
+            this.radioButtonLine.Location = new System.Drawing.Point(7, 44);
+            this.radioButtonLine.Name = "radioButtonLine";
+            this.radioButtonLine.Size = new System.Drawing.Size(45, 17);
+            this.radioButtonLine.TabIndex = 1;
+            this.radioButtonLine.Text = "Line";
+            this.radioButtonLine.UseVisualStyleBackColor = true;
+            // 
             // radioButtonMarker
             // 
             this.radioButtonMarker.AutoSize = true;
@@ -116,25 +112,30 @@
             this.radioButtonMarker.Text = "Marker";
             this.radioButtonMarker.UseVisualStyleBackColor = true;
             // 
-            // radioButtonLine
+            // myMap
             // 
-            this.radioButtonLine.AutoSize = true;
-            this.radioButtonLine.Location = new System.Drawing.Point(7, 44);
-            this.radioButtonLine.Name = "radioButtonLine";
-            this.radioButtonLine.Size = new System.Drawing.Size(45, 17);
-            this.radioButtonLine.TabIndex = 1;
-            this.radioButtonLine.Text = "Line";
-            this.radioButtonLine.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonHeatMap
-            // 
-            this.radioButtonHeatMap.AutoSize = true;
-            this.radioButtonHeatMap.Location = new System.Drawing.Point(7, 68);
-            this.radioButtonHeatMap.Name = "radioButtonHeatMap";
-            this.radioButtonHeatMap.Size = new System.Drawing.Size(68, 17);
-            this.radioButtonHeatMap.TabIndex = 2;
-            this.radioButtonHeatMap.Text = "Heatmap";
-            this.radioButtonHeatMap.UseVisualStyleBackColor = true;
+            this.myMap.Bearing = 0F;
+            this.myMap.CanDragMap = true;
+            this.myMap.EmptyTileColor = System.Drawing.Color.Navy;
+            this.myMap.GrayScaleMode = false;
+            this.myMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.myMap.LevelsKeepInMemmory = 5;
+            this.myMap.Location = new System.Drawing.Point(239, 12);
+            this.myMap.MarkersEnabled = true;
+            this.myMap.MaxZoom = 18;
+            this.myMap.MinZoom = 2;
+            this.myMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.myMap.Name = "myMap";
+            this.myMap.NegativeMode = false;
+            this.myMap.PolygonsEnabled = true;
+            this.myMap.RetryLoadTile = 0;
+            this.myMap.RoutesEnabled = true;
+            this.myMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.myMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.myMap.ShowTileGridLines = false;
+            this.myMap.Size = new System.Drawing.Size(732, 591);
+            this.myMap.TabIndex = 0;
+            this.myMap.Zoom = 12D;
             // 
             // Form1
             // 

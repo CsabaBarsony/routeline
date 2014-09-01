@@ -47,6 +47,19 @@ namespace RouteLineUI
             //points.Add(new PointLatLng(47, 21));
             //GMapRoute path = new GMapRoute(points, "bla");
             //markerOverlay.Routes.Add(path);
+
+            //gheat.PointManager pm = new gheat.PointManager();
+
+            //var p = new PointLatLng(10.0, 10.0);
+            //pm.AddPoint(p);
+            //pm.AddPoint(new PointLatLng(46, 21));
+            //pm.AddPoint(new PointLatLng(47, 21));
+
+            //Bitmap image;
+            //System.IO.MemoryStream stream;
+            //image = gheat.GHeat.GetTile(pm, "majom", 12, 46, 20);
+            //image.Save("test.png");
+            
         }
 
         private void buttonSqlOk_Click(object sender, EventArgs e)
@@ -100,20 +113,9 @@ namespace RouteLineUI
                     points.Add(new PointLatLng(l.lat, l.lon));
                 }
 
-                GMapRoute path = new GMapRoute(points, "bla");
+                GMapRoute path = new GMapRoute(points, "myroute");
                 markerOverlay.Routes.Add(path);
             }
-            else
-            {
-
-            }
-            
-
-            
-            
-            
-
-            
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
