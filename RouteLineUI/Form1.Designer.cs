@@ -36,6 +36,7 @@
             this.radioButtonLine = new System.Windows.Forms.RadioButton();
             this.radioButtonMarker = new System.Windows.Forms.RadioButton();
             this.myMap = new GMap.NET.WindowsForms.GMapControl();
+            this.buttonManageSql = new System.Windows.Forms.Button();
             this.groupBoxDisplayType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             this.textBoxSql.Location = new System.Drawing.Point(12, 12);
             this.textBoxSql.Multiline = true;
             this.textBoxSql.Name = "textBoxSql";
-            this.textBoxSql.Size = new System.Drawing.Size(221, 81);
+            this.textBoxSql.Size = new System.Drawing.Size(238, 81);
             this.textBoxSql.TabIndex = 1;
             this.textBoxSql.Text = "select * from taxi_locations where id > 100 and id < 300";
             // 
@@ -64,7 +65,7 @@
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 3;
-            this.buttonClear.Text = "Clear";
+            this.buttonClear.Text = "Törlés";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
@@ -75,7 +76,7 @@
             this.groupBoxDisplayType.Controls.Add(this.radioButtonMarker);
             this.groupBoxDisplayType.Location = new System.Drawing.Point(12, 128);
             this.groupBoxDisplayType.Name = "groupBoxDisplayType";
-            this.groupBoxDisplayType.Size = new System.Drawing.Size(221, 101);
+            this.groupBoxDisplayType.Size = new System.Drawing.Size(238, 101);
             this.groupBoxDisplayType.TabIndex = 4;
             this.groupBoxDisplayType.TabStop = false;
             // 
@@ -120,7 +121,7 @@
             this.myMap.GrayScaleMode = false;
             this.myMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.myMap.LevelsKeepInMemmory = 5;
-            this.myMap.Location = new System.Drawing.Point(239, 12);
+            this.myMap.Location = new System.Drawing.Point(256, 12);
             this.myMap.MarkersEnabled = true;
             this.myMap.MaxZoom = 18;
             this.myMap.MinZoom = 2;
@@ -133,15 +134,26 @@
             this.myMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.myMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.myMap.ShowTileGridLines = false;
-            this.myMap.Size = new System.Drawing.Size(732, 591);
+            this.myMap.Size = new System.Drawing.Size(715, 591);
             this.myMap.TabIndex = 0;
             this.myMap.Zoom = 12D;
+            // 
+            // buttonManageSql
+            // 
+            this.buttonManageSql.Location = new System.Drawing.Point(175, 99);
+            this.buttonManageSql.Name = "buttonManageSql";
+            this.buttonManageSql.Size = new System.Drawing.Size(75, 23);
+            this.buttonManageSql.TabIndex = 5;
+            this.buttonManageSql.Text = "Kezelés";
+            this.buttonManageSql.UseVisualStyleBackColor = true;
+            this.buttonManageSql.Click += new System.EventHandler(this.buttonManageSql_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(983, 615);
+            this.Controls.Add(this.buttonManageSql);
             this.Controls.Add(this.groupBoxDisplayType);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonSqlOk);
@@ -167,6 +179,7 @@
         private System.Windows.Forms.RadioButton radioButtonHeatMap;
         private System.Windows.Forms.RadioButton radioButtonLine;
         private System.Windows.Forms.RadioButton radioButtonMarker;
+        private System.Windows.Forms.Button buttonManageSql;
 
     }
 }

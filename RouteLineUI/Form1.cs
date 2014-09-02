@@ -67,11 +67,13 @@ namespace RouteLineUI
             if (textBoxSql.Text == "") return;
 
             NpgsqlCommand command = new NpgsqlCommand(textBoxSql.Text, conn);
+            command.CommandTimeout = 100000000;
             locations = new List<Location>();
 
             try
             {
                 NpgsqlDataReader reader = command.ExecuteReader();
+                
                 while (reader.Read())
                 {
                     Location l = new Location();
@@ -99,9 +101,10 @@ namespace RouteLineUI
 
             if (radioButtonMarker.Checked)
             {
+                Bitmap img = new Bitmap("blue_dot.png");
                 foreach (Location l in locations)
                 {
-                    markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), GMarkerGoogleType.lightblue_dot));
+                    markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), img));
                 }
             }
             else if (radioButtonLine.Checked)
@@ -113,8 +116,12 @@ namespace RouteLineUI
                     points.Add(new PointLatLng(l.lat, l.lon));
                 }
 
-                GMapRoute path = new GMapRoute(points, "myroute");
-                markerOverlay.Routes.Add(path);
+                GMapRoute path1 = new GMapRoute(points, "myroute");
+                path1.Stroke = new Pen(Color.FromArgb(0, 255, 0), 5.0f);
+                GMapRoute path2 = new GMapRoute(points, "myroute");
+                path2.Stroke = new Pen(Color.FromArgb(255, 0, 0), 2.0f);
+                markerOverlay.Routes.Add(path1);
+                markerOverlay.Routes.Add(path2);
             }
         }
 
@@ -123,6 +130,12 @@ namespace RouteLineUI
             locations = null;
             markerOverlay.Markers.Clear();
             markerOverlay.Routes.Clear();
+        }
+
+        private void buttonManageSql_Click(object sender, EventArgs e)
+        {
+            FormManageSql formManageSql = new FormManageSql();
+            formManageSql.ShowDialog();
         }
     }
 }
