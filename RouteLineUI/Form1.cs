@@ -59,7 +59,6 @@ namespace RouteLineUI
             //System.IO.MemoryStream stream;
             //image = gheat.GHeat.GetTile(pm, "majom", 12, 46, 20);
             //image.Save("test.png");
-            
         }
 
         private void buttonSqlOk_Click(object sender, EventArgs e)
@@ -101,10 +100,17 @@ namespace RouteLineUI
 
             if (radioButtonMarker.Checked)
             {
+                Bitmap m = new Bitmap(10, 10);
+                Graphics g = Graphics.FromImage(m);
+                Brush orangeBrush = new SolidBrush(Color.OrangeRed);
+                Brush blueBrush = new SolidBrush(Color.Blue);
+                //g.FillEllipse(circleBrush, 0, 0, 10, 10);
+                g.FillPie(orangeBrush, 0f, 0f, 10f, 10f, 90f, 180f);
+                g.FillPie(blueBrush, 0f, 0f, 10f, 10f, 270f, 180f);
                 Bitmap img = new Bitmap("blue_dot.png");
                 foreach (Location l in locations)
                 {
-                    markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), img));
+                    markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), m));
                 }
             }
             else if (radioButtonLine.Checked)
@@ -117,9 +123,9 @@ namespace RouteLineUI
                 }
 
                 GMapRoute path1 = new GMapRoute(points, "myroute");
-                path1.Stroke = new Pen(Color.FromArgb(0, 255, 0), 5.0f);
+                path1.Stroke = new Pen(Color.FromArgb(100, 255, 100), 5.0f);
                 GMapRoute path2 = new GMapRoute(points, "myroute");
-                path2.Stroke = new Pen(Color.FromArgb(255, 0, 0), 2.0f);
+                path2.Stroke = new Pen(Color.FromArgb(255, 109, 109), 2.0f);
                 markerOverlay.Routes.Add(path1);
                 markerOverlay.Routes.Add(path2);
             }
