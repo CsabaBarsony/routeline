@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Location.cs" />
+    <Compile Include="Classes\Query.cs" />
+    <Compile Include="Classes\SqlReader.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +78,12 @@
     <Compile Include="FormManageSql.Designer.cs">
       <DependentUpon>FormManageSql.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormNewQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewQuery.Designer.cs">
+      <DependentUpon>FormNewQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -83,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormManageSql.resx">
       <DependentUpon>FormManageSql.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewQuery.resx">
+      <DependentUpon>FormNewQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

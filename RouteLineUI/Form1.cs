@@ -10,93 +10,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.IO;
 using Npgsql;
 using RouteLineUI.Classes;
 
 namespace RouteLineUI
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
-        private GMapOverlay markerOverlay = new GMapOverlay("markers");
-        private GMapOverlay routesOverlay = new GMapOverlay("routes");
-        private NpgsqlConnection conn;
+        private GMapOverlay markerOverlay;
+        private GMapOverlay routesOverlay;
+        private SqlReader sqlReader;
         private List<Location> locations;
+        private List<Query> queries;
 
-        public Form1()
+        public FormMain()
         {
+            markerOverlay = new GMapOverlay("markers");
+            routesOverlay = new GMapOverlay("routes");
+            sqlReader = new SqlReader("Server=csabavm;Port=5432;User Id=postgres;Password=Asd..123;Database=tmcdb_production;");
+            queries = new List<Query>();
+            this.MouseWheel += new MouseEventHandler(MapMouseWheel);
             InitializeComponent();
         }
 
         private void Form1_Load(Object sender, EventArgs e)
         {
+            myMap.DisableFocusOnMouseEnter = true;
             myMap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
-            //GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(46.25, 20.14), GMarkerGoogleType.green);
-            //markerOverlay.Markers.Add(marker);
-            /*myMap.Overlays.Add(routesOverlay);*/
-
-            String connString = "Server=csabavm;Port=5432;User Id=postgres;Password=Asd..123;Database=tmcdb_production;";
-            conn = new NpgsqlConnection(connString);
-            conn.Open();
-
-            //List<PointLatLng> points = new List<PointLatLng>();
-            //points.Add(new PointLatLng(46, 20));
-            //points.Add(new PointLatLng(46, 21));
-            //points.Add(new PointLatLng(47, 21));
-            //GMapRoute path = new GMapRoute(points, "bla");
-            //markerOverlay.Routes.Add(path);
-
-            //gheat.PointManager pm = new gheat.PointManager();
-
-            //var p = new PointLatLng(10.0, 10.0);
-            //pm.AddPoint(p);
-            //pm.AddPoint(new PointLatLng(46, 21));
-            //pm.AddPoint(new PointLatLng(47, 21));
-
-            //Bitmap image;
-            //System.IO.MemoryStream stream;
-            //image = gheat.GHeat.GetTile(pm, "majom", 12, 46, 20);
-            //image.Save("test.png");
+            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "SELECT * WHERE ..." });
+            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "SELECT id, name WHERE ..." });
         }
 
-        private void buttonSqlOk_Click(object sender, EventArgs e)
+        private void MapMouseWheel(object sender, MouseEventArgs e)
         {
-            if (textBoxSql.Text == "") return;
+            this.myMap.Focus();
+        }
 
-            NpgsqlCommand command = new NpgsqlCommand(textBoxSql.Text, conn);
-            command.CommandTimeout = 100000000;
-            locations = new List<Location>();
-
-            try
+        private async void buttonSqlOk_Click(object sender, EventArgs e)
+        {
+            buttonSqlOk.Text = "Loading...";
+            buttonSqlOk.Enabled = false;
+            await Task.Run(() =>
             {
-                NpgsqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                    Location l = new Location();
-                    l.id = int.Parse(reader[0].ToString());
-                    l.tenantId = int.Parse(reader[1].ToString());
-                    l.userId = int.Parse(reader[2].ToString());
-                    l.trackingDeviceId = int.Parse(reader[3].ToString());
-                    l.trackingSessionId = int.Parse(reader[4].ToString());
-                    l.status = int.Parse(reader[5].ToString());
-                    l.lat = double.Parse(reader[6].ToString());
-                    l.lon = double.Parse(reader[7].ToString());
-                    l.alt = double.Parse(reader[8].ToString());
-                    l.bearing = double.Parse(reader[9].ToString());
-                    l.speed = double.Parse(reader[10].ToString());
-                    l.accuracy = double.Parse(reader[11].ToString());
-                    l.ts = reader[12].ToString();
-
-                    locations.Add(l);
-                }
-            }
-            finally
-            {
-                //conn.Close();
-            }
+                locations = sqlReader.readLocations("select * from taxi_locations where id < 500");
+            });
 
             if (radioButtonMarker.Checked)
             {
@@ -104,7 +66,6 @@ namespace RouteLineUI
                 Graphics g = Graphics.FromImage(m);
                 Brush orangeBrush = new SolidBrush(Color.OrangeRed);
                 Brush blueBrush = new SolidBrush(Color.Blue);
-                //g.FillEllipse(circleBrush, 0, 0, 10, 10);
                 g.FillPie(orangeBrush, 0f, 0f, 10f, 10f, 90f, 180f);
                 g.FillPie(blueBrush, 0f, 0f, 10f, 10f, 270f, 180f);
                 Bitmap img = new Bitmap("blue_dot.png");
@@ -129,6 +90,8 @@ namespace RouteLineUI
                 markerOverlay.Routes.Add(path1);
                 markerOverlay.Routes.Add(path2);
             }
+            buttonSqlOk.Text = "OK";
+            buttonSqlOk.Enabled = true;
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -142,6 +105,88 @@ namespace RouteLineUI
         {
             FormManageSql formManageSql = new FormManageSql();
             formManageSql.ShowDialog();
+        }
+
+        private void buttonAddQuery_Click(object sender, EventArgs e)
+        {
+            panelSelectedQuery.Visible = true;
+            textBoxQueryName.Focus();
+
+            //openFileDialogXml.ShowDialog();
+            //if (openFileDialogXml.FileName != "")
+            //{
+            //    XmlSerializer reader = new XmlSerializer(typeof(Query));
+            //    StreamReader file = new StreamReader(openFileDialogXml.FileName);
+            //    Query query = new Query();
+            //    try
+            //    {
+            //        query = (Query)reader.Deserialize(file);
+            //        textBoxQueryName.Text = query.name;
+            //        textBoxQueryDescription.Text = query.description;
+            //        textBoxQuerySql.Text = query.sql;
+            //    }
+            //    catch (InvalidOperationException ex)
+            //    {
+            //        MessageBox.Show("Hiba a fájl megnyitásakor.");
+            //    }
+            //}
+        }
+
+        private void buttonRemoveQuery_Click(object sender, EventArgs e)
+        {
+            if (checkedListBoxQueries.SelectedIndex < 0) return;
+            checkedListBoxQueries.Items.Remove(checkedListBoxQueries.Items[checkedListBoxQueries.SelectedIndex]);
+        }
+
+        private void buttonSaveQuery_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonLoadQuery_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonDeleteQuery_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonNewQueryOk_Click(object sender, EventArgs e)
+        {
+            if (textBoxQueryName.Text == "" || textBoxQueryDescription.Text == "" || textBoxQuerySql.Text == "")
+            {
+                MessageBox.Show("Minden mezőt ki kell tölteni!");
+            }
+
+            int queryIdWithExistingName = checkedListBoxQueries.FindString(textBoxQueryName.Text);
+
+            if (queryIdWithExistingName >= 0)
+            {
+                MessageBox.Show("Már létezik lekérdezés ilyen névvel!");
+                return;
+            }
+
+            checkedListBoxQueries.Items.Add(new Query
+            {
+                name = textBoxQueryName.Text,
+                description = textBoxQueryDescription.Text,
+                sql = textBoxQuerySql.Text
+            }, true);
+
+            textBoxQueryName.Text = "";
+            textBoxQueryDescription.Text = "";
+            textBoxQuerySql.Text = "";
+            panelSelectedQuery.Visible = false;
+        }
+
+        private void buttonNewQueryCancel_Click(object sender, EventArgs e)
+        {
+            textBoxQueryName.Text = "";
+            textBoxQueryDescription.Text = "";
+            textBoxQuerySql.Text = "";
+            panelSelectedQuery.Visible = false;
         }
     }
 }

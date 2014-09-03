@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace RouteLineUI.Classes
 {
@@ -21,5 +22,25 @@ namespace RouteLineUI.Classes
         public double speed { get; set; }
         public double accuracy { get; set; }
         public String ts { get; set; }
+
+        public static Location create(Npgsql.NpgsqlDataReader reader)
+        {
+            Location l = new Location();
+            l.id = int.Parse(reader[0].ToString());
+            l.tenantId = int.Parse(reader[1].ToString());
+            l.userId = int.Parse(reader[2].ToString());
+            l.trackingDeviceId = int.Parse(reader[3].ToString());
+            l.trackingSessionId = int.Parse(reader[4].ToString());
+            l.status = int.Parse(reader[5].ToString());
+            l.lat = double.Parse(reader[6].ToString());
+            l.lon = double.Parse(reader[7].ToString());
+            l.alt = double.Parse(reader[8].ToString());
+            l.bearing = double.Parse(reader[9].ToString());
+            l.speed = double.Parse(reader[10].ToString());
+            l.accuracy = double.Parse(reader[11].ToString());
+            l.ts = reader[12].ToString();
+
+            return l;
+        }
     }
 }
