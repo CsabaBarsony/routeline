@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Classes\Location.cs" />
     <Compile Include="Classes\Query.cs" />
+    <Compile Include="Classes\Route.cs" />
     <Compile Include="Classes\SqlReader.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

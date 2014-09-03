@@ -24,7 +24,6 @@ namespace RouteLineUI.Classes
             NpgsqlCommand command = new NpgsqlCommand(query, conn);
             List<Location> locations = new List<Location>();
 
-            Thread.Sleep(1000);
             try
             {
                 NpgsqlDataReader reader = command.ExecuteReader();

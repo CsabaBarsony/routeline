@@ -67,7 +67,7 @@
             this.buttonSqlOk.Name = "buttonSqlOk";
             this.buttonSqlOk.Size = new System.Drawing.Size(75, 23);
             this.buttonSqlOk.TabIndex = 2;
-            this.buttonSqlOk.Text = "OK";
+            this.buttonSqlOk.Text = "Mutat";
             this.buttonSqlOk.UseVisualStyleBackColor = true;
             this.buttonSqlOk.Click += new System.EventHandler(this.buttonSqlOk_Click);
             // 
@@ -77,7 +77,7 @@
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 3;
-            this.buttonClear.Text = "Törlés";
+            this.buttonClear.Text = "Elrejt";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 

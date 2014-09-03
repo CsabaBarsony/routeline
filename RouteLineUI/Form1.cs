@@ -22,7 +22,7 @@ namespace RouteLineUI
         private GMapOverlay markerOverlay;
         private GMapOverlay routesOverlay;
         private SqlReader sqlReader;
-        private List<Location> locations;
+        private List<Route> routes;
         private List<Query> queries;
         private ColorConverter colorConverter;
 
@@ -58,48 +58,56 @@ namespace RouteLineUI
         {
             buttonSqlOk.Text = "Loading...";
             buttonSqlOk.Enabled = false;
+            this.routes = new List<Route>();
             await Task.Run(() =>
             {
-                locations = sqlReader.readLocations("select * from taxi_locations where id < 500");
+                foreach (Object o in checkedListBoxQueries.Items)
+                {
+                    Query q = (Query)o;
+                    routes.Add(new Route
+                    {
+                        query = new Query { name = q.name, description = q.description, sql = q.sql, color = q.color },
+                        locations = sqlReader.readLocations(q.sql)
+                    });
+                }
             });
 
             if (radioButtonMarker.Checked)
             {
-                Bitmap m = new Bitmap(10, 10);
-                Graphics g = Graphics.FromImage(m);
-                Brush orangeBrush = new SolidBrush(Color.OrangeRed);
-                Brush blueBrush = new SolidBrush(Color.Blue);
-                g.FillPie(orangeBrush, 0f, 0f, 10f, 10f, 90f, 180f);
-                g.FillPie(blueBrush, 0f, 0f, 10f, 10f, 270f, 180f);
-                Bitmap img = new Bitmap("blue_dot.png");
-                foreach (Location l in locations)
+                foreach (Route r in this.routes)
                 {
-                    markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), m));
+                    Bitmap m = new Bitmap(10, 10);
+                    Graphics g = Graphics.FromImage(m);
+                    Color color = (Color)colorConverter.ConvertFromString(r.query.color);
+                    Brush brush = new SolidBrush(color);
+                    g.FillEllipse(brush, 0f, 0f, 10f, 10f);
+                    foreach (Location l in r.locations)
+                    {
+                        markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), m));
+                    }
                 }
             }
             else if (radioButtonLine.Checked)
             {
-                List<PointLatLng> points = new List<PointLatLng>();
-
-                foreach (Location l in locations)
+                foreach (Route r in this.routes)
                 {
-                    points.Add(new PointLatLng(l.lat, l.lon));
+                    List<PointLatLng> points = new List<PointLatLng>();
+                    foreach (Location l in r.locations)
+                    {
+                        points.Add(new PointLatLng(l.lat, l.lon));
+                    }
+                    GMapRoute gMapRoute = new GMapRoute(points, r.query.name);
+                    gMapRoute.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 3f);
+                    markerOverlay.Routes.Add(gMapRoute);
                 }
-
-                GMapRoute path1 = new GMapRoute(points, "myroute");
-                path1.Stroke = new Pen(Color.FromArgb(100, 255, 100), 5.0f);
-                GMapRoute path2 = new GMapRoute(points, "myroute");
-                path2.Stroke = new Pen(Color.FromArgb(255, 109, 109), 2.0f);
-                markerOverlay.Routes.Add(path1);
-                markerOverlay.Routes.Add(path2);
             }
-            buttonSqlOk.Text = "OK";
+            buttonSqlOk.Text = "Mutat";
             buttonSqlOk.Enabled = true;
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            locations = null;
+            routes = null;
             markerOverlay.Markers.Clear();
             markerOverlay.Routes.Clear();
         }
