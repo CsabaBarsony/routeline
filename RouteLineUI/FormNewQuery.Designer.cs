@@ -36,7 +36,7 @@
             this.textBoxSql = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.saveFileDialogXml = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialogXmlOld = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // labelName
@@ -108,9 +108,9 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // saveFileDialogXml
+            // saveFileDialogXmlOld
             // 
-            this.saveFileDialogXml.Filter = "XML Fájl (*.xml)|*.xml";
+            this.saveFileDialogXmlOld.Filter = "XML Fájl (*.xml)|*.xml";
             // 
             // FormNewQuery
             // 
@@ -142,6 +142,6 @@
         private System.Windows.Forms.TextBox textBoxSql;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.SaveFileDialog saveFileDialogXml;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogXmlOld;
     }
 }

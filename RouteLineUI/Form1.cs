@@ -42,8 +42,8 @@ namespace RouteLineUI
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
-            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "SELECT * WHERE ..." });
-            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "SELECT id, name WHERE ..." });
+            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "SELECT * WHERE ..." }, true);
+            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "SELECT id, name WHERE ..." }, true);
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -109,48 +109,69 @@ namespace RouteLineUI
 
         private void buttonAddQuery_Click(object sender, EventArgs e)
         {
+            checkedListBoxQueries.SelectedIndex = -1;
+            this.emptyQueryPanel();
             panelSelectedQuery.Visible = true;
             textBoxQueryName.Focus();
-
-            //openFileDialogXml.ShowDialog();
-            //if (openFileDialogXml.FileName != "")
-            //{
-            //    XmlSerializer reader = new XmlSerializer(typeof(Query));
-            //    StreamReader file = new StreamReader(openFileDialogXml.FileName);
-            //    Query query = new Query();
-            //    try
-            //    {
-            //        query = (Query)reader.Deserialize(file);
-            //        textBoxQueryName.Text = query.name;
-            //        textBoxQueryDescription.Text = query.description;
-            //        textBoxQuerySql.Text = query.sql;
-            //    }
-            //    catch (InvalidOperationException ex)
-            //    {
-            //        MessageBox.Show("Hiba a fájl megnyitásakor.");
-            //    }
-            //}
         }
 
         private void buttonRemoveQuery_Click(object sender, EventArgs e)
         {
             if (checkedListBoxQueries.SelectedIndex < 0) return;
             checkedListBoxQueries.Items.Remove(checkedListBoxQueries.Items[checkedListBoxQueries.SelectedIndex]);
+            this.emptyQueryPanel();
+            panelSelectedQuery.Visible = false;
         }
 
         private void buttonSaveQuery_Click(object sender, EventArgs e)
         {
+            saveFileDialogXml.ShowDialog();
 
+            if (saveFileDialogXml.FileName != "")
+            {
+                FileStream fs = (FileStream)saveFileDialogXml.OpenFile();
+                XmlSerializer writer = new XmlSerializer(typeof(List<Query>));
+                writer.Serialize(fs, checkedListBoxQueries.Items.Cast<Query>().ToList());
+                fs.Close();
+            }
         }
 
         private void buttonLoadQuery_Click(object sender, EventArgs e)
         {
+            if (0 < checkedListBoxQueries.Items.Count)
+                if (MessageBox.Show("A nem mentett változtatások elvesznek. Biztosan folytatja?", "A nem mentett változtatások elvesznek", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            openFileDialogXml.ShowDialog();
+            if (openFileDialogXml.FileName != "")
+            {
+                XmlSerializer reader = new XmlSerializer(typeof(List<Query>));
+                StreamReader file = new StreamReader(openFileDialogXml.FileName);
+                List<Query> loadedQueries = new List<Query>();
+                try
+                {
+                    loadedQueries = (List<Query>)reader.Deserialize(file);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show("Hiba a fájl megnyitásakor: " + ex.Message);
+                    return;
+                }
 
+                checkedListBoxQueries.Items.Clear();
+
+                foreach (Query q in loadedQueries)
+                {
+                    checkedListBoxQueries.Items.Add(q, true);
+                }
+            }
         }
 
         private void buttonDeleteQuery_Click(object sender, EventArgs e)
         {
-
+            if (checkedListBoxQueries.Items.Count == 0) return;
+            if (MessageBox.Show("Biztosan törli az összes lekérdezést?", "Összes lekérdezés törlése", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            checkedListBoxQueries.Items.Clear();
+            this.emptyQueryPanel();
+            panelSelectedQuery.Visible = false;
         }
 
         private void buttonNewQueryOk_Click(object sender, EventArgs e)
@@ -158,35 +179,52 @@ namespace RouteLineUI
             if (textBoxQueryName.Text == "" || textBoxQueryDescription.Text == "" || textBoxQuerySql.Text == "")
             {
                 MessageBox.Show("Minden mezőt ki kell tölteni!");
-            }
-
-            int queryIdWithExistingName = checkedListBoxQueries.FindString(textBoxQueryName.Text);
-
-            if (queryIdWithExistingName >= 0)
-            {
-                MessageBox.Show("Már létezik lekérdezés ilyen névvel!");
                 return;
             }
 
-            checkedListBoxQueries.Items.Add(new Query
+            if (0 <= checkedListBoxQueries.SelectedIndex)
             {
-                name = textBoxQueryName.Text,
-                description = textBoxQueryDescription.Text,
-                sql = textBoxQuerySql.Text
-            }, true);
+                checkedListBoxQueries.Items[checkedListBoxQueries.SelectedIndex] = new Query
+                {
+                    name = textBoxQueryName.Text,
+                    description = textBoxQueryDescription.Text,
+                    sql = textBoxQuerySql.Text
+                };
+            }
+            else
+            {
+                checkedListBoxQueries.Items.Add(new Query
+                {
+                    name = textBoxQueryName.Text,
+                    description = textBoxQueryDescription.Text,
+                    sql = textBoxQuerySql.Text
+                }, true);
+            }
 
-            textBoxQueryName.Text = "";
-            textBoxQueryDescription.Text = "";
-            textBoxQuerySql.Text = "";
+            this.emptyQueryPanel();
             panelSelectedQuery.Visible = false;
         }
 
         private void buttonNewQueryCancel_Click(object sender, EventArgs e)
         {
-            textBoxQueryName.Text = "";
-            textBoxQueryDescription.Text = "";
-            textBoxQuerySql.Text = "";
+            this.emptyQueryPanel();
             panelSelectedQuery.Visible = false;
+            checkedListBoxQueries.SelectedIndex = -1;
+        }
+
+        private void checkedListBoxQueries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkedListBoxQueries.SelectedIndex < 0) return;
+            panelSelectedQuery.Visible = true;
+            Query selectedQuery = (Query)checkedListBoxQueries.Items[checkedListBoxQueries.SelectedIndex];
+            textBoxQueryName.Text = selectedQuery.name;
+            textBoxQueryDescription.Text = selectedQuery.description;
+            textBoxQuerySql.Text = selectedQuery.sql;
+        }
+
+        private void emptyQueryPanel()
+        {
+            textBoxQueryName.Text = textBoxQueryDescription.Text = textBoxQuerySql.Text = "";
         }
     }
 }

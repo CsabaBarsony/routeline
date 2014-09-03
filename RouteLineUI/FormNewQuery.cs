@@ -27,12 +27,12 @@ namespace RouteLineUI
                 MessageBox.Show("Minden mezőt ki kell tölteni!");
                 return;
             }
-            saveFileDialogXml.ShowDialog();
+            saveFileDialogXmlOld.ShowDialog();
 
-            if (saveFileDialogXml.FileName != "")
+            if (saveFileDialogXmlOld.FileName != "")
             {
                 Query newQuery = new Query { name = textBoxName.Text, description = textBoxDescription.Text, sql = textBoxSql.Text };
-                FileStream fs = (FileStream)saveFileDialogXml.OpenFile();
+                FileStream fs = (FileStream)saveFileDialogXmlOld.OpenFile();
                 XmlSerializer writer = new XmlSerializer(typeof(Query));
                 writer.Serialize(fs, newQuery);
 

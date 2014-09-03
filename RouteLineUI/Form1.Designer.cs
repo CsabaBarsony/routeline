@@ -36,22 +36,23 @@
             this.radioButtonMarker = new System.Windows.Forms.RadioButton();
             this.myMap = new GMap.NET.WindowsForms.GMapControl();
             this.groupBoxQueries = new System.Windows.Forms.GroupBox();
+            this.buttonDeleteQuery = new System.Windows.Forms.Button();
+            this.buttonLoadQuery = new System.Windows.Forms.Button();
+            this.buttonSaveQuery = new System.Windows.Forms.Button();
+            this.checkedListBoxQueries = new System.Windows.Forms.CheckedListBox();
             this.panelSelectedQuery = new System.Windows.Forms.Panel();
+            this.buttonNewQueryCancel = new System.Windows.Forms.Button();
+            this.buttonNewQueryOk = new System.Windows.Forms.Button();
             this.textBoxQueryName = new System.Windows.Forms.TextBox();
             this.labelQueryName = new System.Windows.Forms.Label();
             this.labelQueryDescription = new System.Windows.Forms.Label();
             this.textBoxQueryDescription = new System.Windows.Forms.TextBox();
             this.textBoxQuerySql = new System.Windows.Forms.TextBox();
             this.labelQuerySql = new System.Windows.Forms.Label();
-            this.buttonRemoveQuery = new System.Windows.Forms.Button();
             this.buttonAddQuery = new System.Windows.Forms.Button();
+            this.buttonRemoveQuery = new System.Windows.Forms.Button();
             this.openFileDialogXml = new System.Windows.Forms.OpenFileDialog();
-            this.checkedListBoxQueries = new System.Windows.Forms.CheckedListBox();
-            this.buttonSaveQuery = new System.Windows.Forms.Button();
-            this.buttonLoadQuery = new System.Windows.Forms.Button();
-            this.buttonDeleteQuery = new System.Windows.Forms.Button();
-            this.buttonNewQueryOk = new System.Windows.Forms.Button();
-            this.buttonNewQueryCancel = new System.Windows.Forms.Button();
+            this.saveFileDialogXml = new System.Windows.Forms.SaveFileDialog();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             this.panelSelectedQuery.SuspendLayout();
@@ -157,10 +158,49 @@
             this.groupBoxQueries.Controls.Add(this.buttonRemoveQuery);
             this.groupBoxQueries.Location = new System.Drawing.Point(12, 82);
             this.groupBoxQueries.Name = "groupBoxQueries";
-            this.groupBoxQueries.Size = new System.Drawing.Size(250, 521);
+            this.groupBoxQueries.Size = new System.Drawing.Size(250, 432);
             this.groupBoxQueries.TabIndex = 6;
             this.groupBoxQueries.TabStop = false;
             this.groupBoxQueries.Text = "Lekérdezések";
+            // 
+            // buttonDeleteQuery
+            // 
+            this.buttonDeleteQuery.Location = new System.Drawing.Point(168, 135);
+            this.buttonDeleteQuery.Name = "buttonDeleteQuery";
+            this.buttonDeleteQuery.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeleteQuery.TabIndex = 16;
+            this.buttonDeleteQuery.Text = "Töröl";
+            this.buttonDeleteQuery.UseVisualStyleBackColor = true;
+            this.buttonDeleteQuery.Click += new System.EventHandler(this.buttonDeleteQuery_Click);
+            // 
+            // buttonLoadQuery
+            // 
+            this.buttonLoadQuery.Location = new System.Drawing.Point(168, 106);
+            this.buttonLoadQuery.Name = "buttonLoadQuery";
+            this.buttonLoadQuery.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoadQuery.TabIndex = 15;
+            this.buttonLoadQuery.Text = "Betölt";
+            this.buttonLoadQuery.UseVisualStyleBackColor = true;
+            this.buttonLoadQuery.Click += new System.EventHandler(this.buttonLoadQuery_Click);
+            // 
+            // buttonSaveQuery
+            // 
+            this.buttonSaveQuery.Location = new System.Drawing.Point(168, 77);
+            this.buttonSaveQuery.Name = "buttonSaveQuery";
+            this.buttonSaveQuery.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveQuery.TabIndex = 14;
+            this.buttonSaveQuery.Text = "Ment";
+            this.buttonSaveQuery.UseVisualStyleBackColor = true;
+            this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
+            // 
+            // checkedListBoxQueries
+            // 
+            this.checkedListBoxQueries.FormattingEnabled = true;
+            this.checkedListBoxQueries.Location = new System.Drawing.Point(7, 19);
+            this.checkedListBoxQueries.Name = "checkedListBoxQueries";
+            this.checkedListBoxQueries.Size = new System.Drawing.Size(155, 169);
+            this.checkedListBoxQueries.TabIndex = 13;
+            this.checkedListBoxQueries.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxQueries_SelectedIndexChanged);
             // 
             // panelSelectedQuery
             // 
@@ -172,11 +212,31 @@
             this.panelSelectedQuery.Controls.Add(this.textBoxQueryDescription);
             this.panelSelectedQuery.Controls.Add(this.textBoxQuerySql);
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
-            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 216);
+            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 194);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
-            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 299);
+            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 232);
             this.panelSelectedQuery.TabIndex = 11;
             this.panelSelectedQuery.Visible = false;
+            // 
+            // buttonNewQueryCancel
+            // 
+            this.buttonNewQueryCancel.Location = new System.Drawing.Point(80, 208);
+            this.buttonNewQueryCancel.Name = "buttonNewQueryCancel";
+            this.buttonNewQueryCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonNewQueryCancel.TabIndex = 8;
+            this.buttonNewQueryCancel.Text = "Mégse";
+            this.buttonNewQueryCancel.UseVisualStyleBackColor = true;
+            this.buttonNewQueryCancel.Click += new System.EventHandler(this.buttonNewQueryCancel_Click);
+            // 
+            // buttonNewQueryOk
+            // 
+            this.buttonNewQueryOk.Location = new System.Drawing.Point(-1, 208);
+            this.buttonNewQueryOk.Name = "buttonNewQueryOk";
+            this.buttonNewQueryOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonNewQueryOk.TabIndex = 7;
+            this.buttonNewQueryOk.Text = "OK";
+            this.buttonNewQueryOk.UseVisualStyleBackColor = true;
+            this.buttonNewQueryOk.Click += new System.EventHandler(this.buttonNewQueryOk_Click);
             // 
             // textBoxQueryName
             // 
@@ -190,18 +250,18 @@
             this.labelQueryName.AutoSize = true;
             this.labelQueryName.Location = new System.Drawing.Point(3, 0);
             this.labelQueryName.Name = "labelQueryName";
-            this.labelQueryName.Size = new System.Drawing.Size(27, 13);
+            this.labelQueryName.Size = new System.Drawing.Size(30, 13);
             this.labelQueryName.TabIndex = 1;
-            this.labelQueryName.Text = "Név";
+            this.labelQueryName.Text = "Név:";
             // 
             // labelQueryDescription
             // 
             this.labelQueryDescription.AutoSize = true;
             this.labelQueryDescription.Location = new System.Drawing.Point(3, 39);
             this.labelQueryDescription.Name = "labelQueryDescription";
-            this.labelQueryDescription.Size = new System.Drawing.Size(37, 13);
+            this.labelQueryDescription.Size = new System.Drawing.Size(40, 13);
             this.labelQueryDescription.TabIndex = 2;
-            this.labelQueryDescription.Text = "Leírás";
+            this.labelQueryDescription.Text = "Leírás:";
             // 
             // textBoxQueryDescription
             // 
@@ -223,19 +283,9 @@
             this.labelQuerySql.AutoSize = true;
             this.labelQuerySql.Location = new System.Drawing.Point(3, 78);
             this.labelQuerySql.Name = "labelQuerySql";
-            this.labelQuerySql.Size = new System.Drawing.Size(28, 13);
+            this.labelQuerySql.Size = new System.Drawing.Size(31, 13);
             this.labelQuerySql.TabIndex = 3;
-            this.labelQuerySql.Text = "SQL";
-            // 
-            // buttonRemoveQuery
-            // 
-            this.buttonRemoveQuery.Location = new System.Drawing.Point(168, 48);
-            this.buttonRemoveQuery.Name = "buttonRemoveQuery";
-            this.buttonRemoveQuery.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemoveQuery.TabIndex = 9;
-            this.buttonRemoveQuery.Text = "Elvesz";
-            this.buttonRemoveQuery.UseVisualStyleBackColor = true;
-            this.buttonRemoveQuery.Click += new System.EventHandler(this.buttonRemoveQuery_Click);
+            this.labelQuerySql.Text = "SQL:";
             // 
             // buttonAddQuery
             // 
@@ -247,67 +297,19 @@
             this.buttonAddQuery.UseVisualStyleBackColor = true;
             this.buttonAddQuery.Click += new System.EventHandler(this.buttonAddQuery_Click);
             // 
-            // openFileDialogXml
+            // buttonRemoveQuery
             // 
-            this.openFileDialogXml.FileName = "openFileDialog1";
+            this.buttonRemoveQuery.Location = new System.Drawing.Point(168, 48);
+            this.buttonRemoveQuery.Name = "buttonRemoveQuery";
+            this.buttonRemoveQuery.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemoveQuery.TabIndex = 9;
+            this.buttonRemoveQuery.Text = "Elvesz";
+            this.buttonRemoveQuery.UseVisualStyleBackColor = true;
+            this.buttonRemoveQuery.Click += new System.EventHandler(this.buttonRemoveQuery_Click);
             // 
-            // checkedListBoxQueries
+            // saveFileDialogXml
             // 
-            this.checkedListBoxQueries.FormattingEnabled = true;
-            this.checkedListBoxQueries.Location = new System.Drawing.Point(7, 19);
-            this.checkedListBoxQueries.Name = "checkedListBoxQueries";
-            this.checkedListBoxQueries.Size = new System.Drawing.Size(155, 169);
-            this.checkedListBoxQueries.TabIndex = 13;
-            // 
-            // buttonSaveQuery
-            // 
-            this.buttonSaveQuery.Location = new System.Drawing.Point(168, 77);
-            this.buttonSaveQuery.Name = "buttonSaveQuery";
-            this.buttonSaveQuery.Size = new System.Drawing.Size(75, 23);
-            this.buttonSaveQuery.TabIndex = 14;
-            this.buttonSaveQuery.Text = "Ment";
-            this.buttonSaveQuery.UseVisualStyleBackColor = true;
-            this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
-            // 
-            // buttonLoadQuery
-            // 
-            this.buttonLoadQuery.Location = new System.Drawing.Point(168, 106);
-            this.buttonLoadQuery.Name = "buttonLoadQuery";
-            this.buttonLoadQuery.Size = new System.Drawing.Size(75, 23);
-            this.buttonLoadQuery.TabIndex = 15;
-            this.buttonLoadQuery.Text = "Betölt";
-            this.buttonLoadQuery.UseVisualStyleBackColor = true;
-            this.buttonLoadQuery.Click += new System.EventHandler(this.buttonLoadQuery_Click);
-            // 
-            // buttonDeleteQuery
-            // 
-            this.buttonDeleteQuery.Location = new System.Drawing.Point(168, 135);
-            this.buttonDeleteQuery.Name = "buttonDeleteQuery";
-            this.buttonDeleteQuery.Size = new System.Drawing.Size(75, 23);
-            this.buttonDeleteQuery.TabIndex = 16;
-            this.buttonDeleteQuery.Text = "Töröl";
-            this.buttonDeleteQuery.UseVisualStyleBackColor = true;
-            this.buttonDeleteQuery.Click += new System.EventHandler(this.buttonDeleteQuery_Click);
-            // 
-            // buttonNewQueryOk
-            // 
-            this.buttonNewQueryOk.Location = new System.Drawing.Point(-1, 208);
-            this.buttonNewQueryOk.Name = "buttonNewQueryOk";
-            this.buttonNewQueryOk.Size = new System.Drawing.Size(75, 23);
-            this.buttonNewQueryOk.TabIndex = 7;
-            this.buttonNewQueryOk.Text = "OK";
-            this.buttonNewQueryOk.UseVisualStyleBackColor = true;
-            this.buttonNewQueryOk.Click += new System.EventHandler(this.buttonNewQueryOk_Click);
-            // 
-            // buttonNewQueryCancel
-            // 
-            this.buttonNewQueryCancel.Location = new System.Drawing.Point(80, 208);
-            this.buttonNewQueryCancel.Name = "buttonNewQueryCancel";
-            this.buttonNewQueryCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonNewQueryCancel.TabIndex = 8;
-            this.buttonNewQueryCancel.Text = "Mégse";
-            this.buttonNewQueryCancel.UseVisualStyleBackColor = true;
-            this.buttonNewQueryCancel.Click += new System.EventHandler(this.buttonNewQueryCancel_Click);
+            this.saveFileDialogXml.Filter = "XML Fájl (*.xml)|*.xml";
             // 
             // FormMain
             // 
@@ -357,6 +359,7 @@
         private System.Windows.Forms.Button buttonSaveQuery;
         private System.Windows.Forms.Button buttonNewQueryCancel;
         private System.Windows.Forms.Button buttonNewQueryOk;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogXml;
 
     }
 }
