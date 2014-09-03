@@ -45,8 +45,8 @@ namespace RouteLineUI
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
             panelColorSample.BackColor = colorDialogQuery.Color;
-            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where id < 500", color = "Blue" }, true);
-            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
+            //checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where id < 500", color = "Blue" }, true);
+            //checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -56,18 +56,25 @@ namespace RouteLineUI
 
         private async void buttonSqlOk_Click(object sender, EventArgs e)
         {
-            buttonSqlOk.Text = "Loading...";
-            buttonSqlOk.Enabled = false;
             this.routes = new List<Route>();
+            List<Query> checkedQueries = checkedListBoxQueries.CheckedItems.Cast<Query>().ToList();
             await Task.Run(() =>
             {
-                foreach (Object o in checkedListBoxQueries.Items)
+                foreach (Query q in checkedQueries)
                 {
-                    Query q = (Query)o;
+                    List<Location> location = new List<Location>();
+                    try
+                    {
+                        location = sqlReader.readLocations(q.sql);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show("Hiba történt a lekérdezés közben: " + ex.Message);
+                    }
                     routes.Add(new Route
                     {
                         query = new Query { name = q.name, description = q.description, sql = q.sql, color = q.color },
-                        locations = sqlReader.readLocations(q.sql)
+                        locations = location
                     });
                 }
             });
@@ -101,8 +108,6 @@ namespace RouteLineUI
                     markerOverlay.Routes.Add(gMapRoute);
                 }
             }
-            buttonSqlOk.Text = "Mutat";
-            buttonSqlOk.Enabled = true;
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
