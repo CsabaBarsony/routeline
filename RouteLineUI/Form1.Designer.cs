@@ -41,6 +41,8 @@
             this.buttonSaveQuery = new System.Windows.Forms.Button();
             this.checkedListBoxQueries = new System.Windows.Forms.CheckedListBox();
             this.panelSelectedQuery = new System.Windows.Forms.Panel();
+            this.panelColorSample = new System.Windows.Forms.Panel();
+            this.buttonQueryColor = new System.Windows.Forms.Button();
             this.buttonNewQueryCancel = new System.Windows.Forms.Button();
             this.buttonNewQueryOk = new System.Windows.Forms.Button();
             this.textBoxQueryName = new System.Windows.Forms.TextBox();
@@ -53,6 +55,7 @@
             this.buttonRemoveQuery = new System.Windows.Forms.Button();
             this.openFileDialogXml = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogXml = new System.Windows.Forms.SaveFileDialog();
+            this.colorDialogQuery = new System.Windows.Forms.ColorDialog();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             this.panelSelectedQuery.SuspendLayout();
@@ -158,7 +161,7 @@
             this.groupBoxQueries.Controls.Add(this.buttonRemoveQuery);
             this.groupBoxQueries.Location = new System.Drawing.Point(12, 82);
             this.groupBoxQueries.Name = "groupBoxQueries";
-            this.groupBoxQueries.Size = new System.Drawing.Size(250, 432);
+            this.groupBoxQueries.Size = new System.Drawing.Size(250, 521);
             this.groupBoxQueries.TabIndex = 6;
             this.groupBoxQueries.TabStop = false;
             this.groupBoxQueries.Text = "Lekérdezések";
@@ -204,6 +207,8 @@
             // 
             // panelSelectedQuery
             // 
+            this.panelSelectedQuery.Controls.Add(this.panelColorSample);
+            this.panelSelectedQuery.Controls.Add(this.buttonQueryColor);
             this.panelSelectedQuery.Controls.Add(this.buttonNewQueryCancel);
             this.panelSelectedQuery.Controls.Add(this.buttonNewQueryOk);
             this.panelSelectedQuery.Controls.Add(this.textBoxQueryName);
@@ -214,13 +219,31 @@
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
             this.panelSelectedQuery.Location = new System.Drawing.Point(7, 194);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
-            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 232);
+            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 321);
             this.panelSelectedQuery.TabIndex = 11;
             this.panelSelectedQuery.Visible = false;
             // 
+            // panelColorSample
+            // 
+            this.panelColorSample.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelColorSample.Location = new System.Drawing.Point(80, 208);
+            this.panelColorSample.Name = "panelColorSample";
+            this.panelColorSample.Size = new System.Drawing.Size(35, 23);
+            this.panelColorSample.TabIndex = 18;
+            // 
+            // buttonQueryColor
+            // 
+            this.buttonQueryColor.Location = new System.Drawing.Point(-1, 208);
+            this.buttonQueryColor.Name = "buttonQueryColor";
+            this.buttonQueryColor.Size = new System.Drawing.Size(75, 23);
+            this.buttonQueryColor.TabIndex = 17;
+            this.buttonQueryColor.Text = "Szín";
+            this.buttonQueryColor.UseVisualStyleBackColor = true;
+            this.buttonQueryColor.Click += new System.EventHandler(this.buttonQueryColor_Click);
+            // 
             // buttonNewQueryCancel
             // 
-            this.buttonNewQueryCancel.Location = new System.Drawing.Point(80, 208);
+            this.buttonNewQueryCancel.Location = new System.Drawing.Point(80, 298);
             this.buttonNewQueryCancel.Name = "buttonNewQueryCancel";
             this.buttonNewQueryCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonNewQueryCancel.TabIndex = 8;
@@ -230,7 +253,7 @@
             // 
             // buttonNewQueryOk
             // 
-            this.buttonNewQueryOk.Location = new System.Drawing.Point(-1, 208);
+            this.buttonNewQueryOk.Location = new System.Drawing.Point(-1, 298);
             this.buttonNewQueryOk.Name = "buttonNewQueryOk";
             this.buttonNewQueryOk.Size = new System.Drawing.Size(75, 23);
             this.buttonNewQueryOk.TabIndex = 7;
@@ -248,7 +271,7 @@
             // labelQueryName
             // 
             this.labelQueryName.AutoSize = true;
-            this.labelQueryName.Location = new System.Drawing.Point(3, 0);
+            this.labelQueryName.Location = new System.Drawing.Point(-1, 0);
             this.labelQueryName.Name = "labelQueryName";
             this.labelQueryName.Size = new System.Drawing.Size(30, 13);
             this.labelQueryName.TabIndex = 1;
@@ -257,7 +280,7 @@
             // labelQueryDescription
             // 
             this.labelQueryDescription.AutoSize = true;
-            this.labelQueryDescription.Location = new System.Drawing.Point(3, 39);
+            this.labelQueryDescription.Location = new System.Drawing.Point(-1, 39);
             this.labelQueryDescription.Name = "labelQueryDescription";
             this.labelQueryDescription.Size = new System.Drawing.Size(40, 13);
             this.labelQueryDescription.TabIndex = 2;
@@ -281,7 +304,7 @@
             // labelQuerySql
             // 
             this.labelQuerySql.AutoSize = true;
-            this.labelQuerySql.Location = new System.Drawing.Point(3, 78);
+            this.labelQuerySql.Location = new System.Drawing.Point(-1, 78);
             this.labelQuerySql.Name = "labelQuerySql";
             this.labelQuerySql.Size = new System.Drawing.Size(31, 13);
             this.labelQuerySql.TabIndex = 3;
@@ -310,6 +333,10 @@
             // saveFileDialogXml
             // 
             this.saveFileDialogXml.Filter = "XML Fájl (*.xml)|*.xml";
+            // 
+            // colorDialogQuery
+            // 
+            this.colorDialogQuery.Color = System.Drawing.Color.Blue;
             // 
             // FormMain
             // 
@@ -360,6 +387,9 @@
         private System.Windows.Forms.Button buttonNewQueryCancel;
         private System.Windows.Forms.Button buttonNewQueryOk;
         private System.Windows.Forms.SaveFileDialog saveFileDialogXml;
+        private System.Windows.Forms.ColorDialog colorDialogQuery;
+        private System.Windows.Forms.Button buttonQueryColor;
+        private System.Windows.Forms.Panel panelColorSample;
 
     }
 }
