@@ -25,6 +25,7 @@ namespace RouteLineUI
         private List<Route> routes;
         private List<Query> queries;
         private ColorConverter colorConverter;
+        private string labelQueryCountText;
 
         public FormMain()
         {
@@ -34,6 +35,7 @@ namespace RouteLineUI
             this.queries = new List<Query>();
             this.MouseWheel += new MouseEventHandler(MapMouseWheel);
             this.colorConverter = new ColorConverter();
+            this.labelQueryCountText = "lekérdezett sorok: ";
             InitializeComponent();
         }
 
@@ -64,6 +66,7 @@ namespace RouteLineUI
             this.routesOverlay.Clear();
             this.routes = new List<Route>();
             List<Query> checkedQueries = checkedListBoxQueries.CheckedItems.Cast<Query>().ToList();
+            int rowCount = 0;
             await Task.Run(() =>
             {
                 foreach (Query q in checkedQueries)
@@ -82,8 +85,11 @@ namespace RouteLineUI
                         query = new Query { name = q.name, description = q.description, sql = q.sql, color = q.color },
                         locations = location
                     });
+                    rowCount += location.Count;
                 }
             });
+
+            labelQueryCount.Text = labelQueryCountText + rowCount.ToString();
 
             if (radioButtonMarker.Checked)
             {
@@ -137,6 +143,7 @@ namespace RouteLineUI
             routes = null;
             markerOverlay.Markers.Clear();
             markerOverlay.Routes.Clear();
+            labelQueryCount.Text = labelQueryCountText + "0";
         }
 
         private void buttonManageSql_Click(object sender, EventArgs e)

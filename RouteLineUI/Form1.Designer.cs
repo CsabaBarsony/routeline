@@ -57,6 +57,7 @@
             this.saveFileDialogXml = new System.Windows.Forms.SaveFileDialog();
             this.colorDialogQuery = new System.Windows.Forms.ColorDialog();
             this.buttonCloneQuery = new System.Windows.Forms.Button();
+            this.labelQueryCount = new System.Windows.Forms.Label();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             this.panelSelectedQuery.SuspendLayout();
@@ -153,6 +154,7 @@
             // 
             // groupBoxQueries
             // 
+            this.groupBoxQueries.Controls.Add(this.labelQueryCount);
             this.groupBoxQueries.Controls.Add(this.buttonCloneQuery);
             this.groupBoxQueries.Controls.Add(this.buttonDeleteQuery);
             this.groupBoxQueries.Controls.Add(this.buttonLoadQuery);
@@ -221,7 +223,7 @@
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
             this.panelSelectedQuery.Location = new System.Drawing.Point(7, 194);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
-            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 321);
+            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 285);
             this.panelSelectedQuery.TabIndex = 11;
             this.panelSelectedQuery.Visible = false;
             // 
@@ -245,7 +247,7 @@
             // 
             // buttonNewQueryCancel
             // 
-            this.buttonNewQueryCancel.Location = new System.Drawing.Point(80, 298);
+            this.buttonNewQueryCancel.Location = new System.Drawing.Point(81, 263);
             this.buttonNewQueryCancel.Name = "buttonNewQueryCancel";
             this.buttonNewQueryCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonNewQueryCancel.TabIndex = 8;
@@ -255,7 +257,7 @@
             // 
             // buttonNewQueryOk
             // 
-            this.buttonNewQueryOk.Location = new System.Drawing.Point(-1, 298);
+            this.buttonNewQueryOk.Location = new System.Drawing.Point(0, 263);
             this.buttonNewQueryOk.Name = "buttonNewQueryOk";
             this.buttonNewQueryOk.Size = new System.Drawing.Size(75, 23);
             this.buttonNewQueryOk.TabIndex = 7;
@@ -350,6 +352,15 @@
             this.buttonCloneQuery.UseVisualStyleBackColor = true;
             this.buttonCloneQuery.Click += new System.EventHandler(this.buttonCloneQuery_Click);
             // 
+            // labelQueryCount
+            // 
+            this.labelQueryCount.AutoSize = true;
+            this.labelQueryCount.Location = new System.Drawing.Point(3, 505);
+            this.labelQueryCount.Name = "labelQueryCount";
+            this.labelQueryCount.Size = new System.Drawing.Size(100, 13);
+            this.labelQueryCount.TabIndex = 19;
+            this.labelQueryCount.Text = "lekérdezett sorok: 0";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -366,6 +377,7 @@
             this.groupBoxDisplayType.ResumeLayout(false);
             this.groupBoxDisplayType.PerformLayout();
             this.groupBoxQueries.ResumeLayout(false);
+            this.groupBoxQueries.PerformLayout();
             this.panelSelectedQuery.ResumeLayout(false);
             this.panelSelectedQuery.PerformLayout();
             this.ResumeLayout(false);
@@ -403,6 +415,7 @@
         private System.Windows.Forms.Button buttonQueryColor;
         private System.Windows.Forms.Panel panelColorSample;
         private System.Windows.Forms.Button buttonCloneQuery;
+        private System.Windows.Forms.Label labelQueryCount;
 
     }
 }
