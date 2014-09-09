@@ -37,8 +37,6 @@
             this.myMap = new GMap.NET.WindowsForms.GMapControl();
             this.groupBoxQueries = new System.Windows.Forms.GroupBox();
             this.buttonDeleteQuery = new System.Windows.Forms.Button();
-            this.buttonLoadQuery = new System.Windows.Forms.Button();
-            this.buttonSaveQuery = new System.Windows.Forms.Button();
             this.checkedListBoxQueries = new System.Windows.Forms.CheckedListBox();
             this.panelSelectedQuery = new System.Windows.Forms.Panel();
             this.panelColorSample = new System.Windows.Forms.Panel();
@@ -60,14 +58,19 @@
             this.labelQueryCount = new System.Windows.Forms.Label();
             this.buttonQueryUp = new System.Windows.Forms.Button();
             this.buttonQueryDown = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fájlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemLoad = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             this.panelSelectedQuery.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonSqlOk
             // 
-            this.buttonSqlOk.Location = new System.Drawing.Point(12, 12);
+            this.buttonSqlOk.Location = new System.Drawing.Point(12, 27);
             this.buttonSqlOk.Name = "buttonSqlOk";
             this.buttonSqlOk.Size = new System.Drawing.Size(75, 23);
             this.buttonSqlOk.TabIndex = 2;
@@ -77,7 +80,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(93, 12);
+            this.buttonClear.Location = new System.Drawing.Point(93, 27);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 3;
@@ -90,7 +93,7 @@
             this.groupBoxDisplayType.Controls.Add(this.radioButtonHeatMap);
             this.groupBoxDisplayType.Controls.Add(this.radioButtonLine);
             this.groupBoxDisplayType.Controls.Add(this.radioButtonMarker);
-            this.groupBoxDisplayType.Location = new System.Drawing.Point(12, 41);
+            this.groupBoxDisplayType.Location = new System.Drawing.Point(12, 56);
             this.groupBoxDisplayType.Name = "groupBoxDisplayType";
             this.groupBoxDisplayType.Size = new System.Drawing.Size(250, 35);
             this.groupBoxDisplayType.TabIndex = 4;
@@ -137,7 +140,7 @@
             this.myMap.GrayScaleMode = false;
             this.myMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.myMap.LevelsKeepInMemmory = 5;
-            this.myMap.Location = new System.Drawing.Point(268, 12);
+            this.myMap.Location = new System.Drawing.Point(268, 27);
             this.myMap.MarkersEnabled = true;
             this.myMap.MaxZoom = 18;
             this.myMap.MinZoom = 2;
@@ -150,7 +153,7 @@
             this.myMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.myMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.myMap.ShowTileGridLines = false;
-            this.myMap.Size = new System.Drawing.Size(703, 591);
+            this.myMap.Size = new System.Drawing.Size(703, 576);
             this.myMap.TabIndex = 0;
             this.myMap.Zoom = 12D;
             // 
@@ -161,22 +164,20 @@
             this.groupBoxQueries.Controls.Add(this.labelQueryCount);
             this.groupBoxQueries.Controls.Add(this.buttonCloneQuery);
             this.groupBoxQueries.Controls.Add(this.buttonDeleteQuery);
-            this.groupBoxQueries.Controls.Add(this.buttonLoadQuery);
-            this.groupBoxQueries.Controls.Add(this.buttonSaveQuery);
             this.groupBoxQueries.Controls.Add(this.checkedListBoxQueries);
             this.groupBoxQueries.Controls.Add(this.panelSelectedQuery);
             this.groupBoxQueries.Controls.Add(this.buttonAddQuery);
             this.groupBoxQueries.Controls.Add(this.buttonRemoveQuery);
-            this.groupBoxQueries.Location = new System.Drawing.Point(12, 82);
+            this.groupBoxQueries.Location = new System.Drawing.Point(12, 97);
             this.groupBoxQueries.Name = "groupBoxQueries";
-            this.groupBoxQueries.Size = new System.Drawing.Size(250, 521);
+            this.groupBoxQueries.Size = new System.Drawing.Size(250, 572);
             this.groupBoxQueries.TabIndex = 6;
             this.groupBoxQueries.TabStop = false;
             this.groupBoxQueries.Text = "Lekérdezések";
             // 
             // buttonDeleteQuery
             // 
-            this.buttonDeleteQuery.Location = new System.Drawing.Point(168, 135);
+            this.buttonDeleteQuery.Location = new System.Drawing.Point(168, 77);
             this.buttonDeleteQuery.Name = "buttonDeleteQuery";
             this.buttonDeleteQuery.Size = new System.Drawing.Size(75, 23);
             this.buttonDeleteQuery.TabIndex = 16;
@@ -184,32 +185,12 @@
             this.buttonDeleteQuery.UseVisualStyleBackColor = true;
             this.buttonDeleteQuery.Click += new System.EventHandler(this.buttonDeleteQuery_Click);
             // 
-            // buttonLoadQuery
-            // 
-            this.buttonLoadQuery.Location = new System.Drawing.Point(168, 106);
-            this.buttonLoadQuery.Name = "buttonLoadQuery";
-            this.buttonLoadQuery.Size = new System.Drawing.Size(75, 23);
-            this.buttonLoadQuery.TabIndex = 15;
-            this.buttonLoadQuery.Text = "Betölt";
-            this.buttonLoadQuery.UseVisualStyleBackColor = true;
-            this.buttonLoadQuery.Click += new System.EventHandler(this.buttonLoadQuery_Click);
-            // 
-            // buttonSaveQuery
-            // 
-            this.buttonSaveQuery.Location = new System.Drawing.Point(168, 77);
-            this.buttonSaveQuery.Name = "buttonSaveQuery";
-            this.buttonSaveQuery.Size = new System.Drawing.Size(75, 23);
-            this.buttonSaveQuery.TabIndex = 14;
-            this.buttonSaveQuery.Text = "Ment";
-            this.buttonSaveQuery.UseVisualStyleBackColor = true;
-            this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
-            // 
             // checkedListBoxQueries
             // 
             this.checkedListBoxQueries.FormattingEnabled = true;
             this.checkedListBoxQueries.Location = new System.Drawing.Point(7, 19);
             this.checkedListBoxQueries.Name = "checkedListBoxQueries";
-            this.checkedListBoxQueries.Size = new System.Drawing.Size(155, 244);
+            this.checkedListBoxQueries.Size = new System.Drawing.Size(155, 199);
             this.checkedListBoxQueries.TabIndex = 13;
             this.checkedListBoxQueries.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxQueries_SelectedIndexChanged);
             // 
@@ -225,7 +206,7 @@
             this.panelSelectedQuery.Controls.Add(this.textBoxQueryDescription);
             this.panelSelectedQuery.Controls.Add(this.textBoxQuerySql);
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
-            this.panelSelectedQuery.Location = new System.Drawing.Point(6, 286);
+            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 249);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
             this.panelSelectedQuery.Size = new System.Drawing.Size(237, 216);
             this.panelSelectedQuery.TabIndex = 11;
@@ -348,7 +329,7 @@
             // 
             // buttonCloneQuery
             // 
-            this.buttonCloneQuery.Location = new System.Drawing.Point(168, 164);
+            this.buttonCloneQuery.Location = new System.Drawing.Point(168, 106);
             this.buttonCloneQuery.Name = "buttonCloneQuery";
             this.buttonCloneQuery.Size = new System.Drawing.Size(75, 23);
             this.buttonCloneQuery.TabIndex = 19;
@@ -359,7 +340,7 @@
             // labelQueryCount
             // 
             this.labelQueryCount.AutoSize = true;
-            this.labelQueryCount.Location = new System.Drawing.Point(3, 505);
+            this.labelQueryCount.Location = new System.Drawing.Point(2, 556);
             this.labelQueryCount.Name = "labelQueryCount";
             this.labelQueryCount.Size = new System.Drawing.Size(100, 13);
             this.labelQueryCount.TabIndex = 19;
@@ -367,7 +348,7 @@
             // 
             // buttonQueryUp
             // 
-            this.buttonQueryUp.Location = new System.Drawing.Point(168, 193);
+            this.buttonQueryUp.Location = new System.Drawing.Point(168, 135);
             this.buttonQueryUp.Name = "buttonQueryUp";
             this.buttonQueryUp.Size = new System.Drawing.Size(75, 23);
             this.buttonQueryUp.TabIndex = 20;
@@ -377,7 +358,7 @@
             // 
             // buttonQueryDown
             // 
-            this.buttonQueryDown.Location = new System.Drawing.Point(168, 222);
+            this.buttonQueryDown.Location = new System.Drawing.Point(168, 164);
             this.buttonQueryDown.Name = "buttonQueryDown";
             this.buttonQueryDown.Size = new System.Drawing.Size(75, 23);
             this.buttonQueryDown.TabIndex = 21;
@@ -385,16 +366,51 @@
             this.buttonQueryDown.UseVisualStyleBackColor = true;
             this.buttonQueryDown.Click += new System.EventHandler(this.buttonQueryDown_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fájlToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(983, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fájlToolStripMenuItem
+            // 
+            this.fájlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemLoad,
+            this.toolStripMenuItemSave});
+            this.fájlToolStripMenuItem.Name = "fájlToolStripMenuItem";
+            this.fájlToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fájlToolStripMenuItem.Text = "Fájl";
+            // 
+            // toolStripMenuItemLoad
+            // 
+            this.toolStripMenuItemLoad.Name = "toolStripMenuItemLoad";
+            this.toolStripMenuItemLoad.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemLoad.Text = "Betölt";
+            this.toolStripMenuItemLoad.Click += new System.EventHandler(this.toolStripMenuItemLoad_Click);
+            // 
+            // toolStripMenuItemSave
+            // 
+            this.toolStripMenuItemSave.Name = "toolStripMenuItemSave";
+            this.toolStripMenuItemSave.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSave.Text = "Ment";
+            this.toolStripMenuItemSave.Click += new System.EventHandler(this.toolStripMenuItemSave_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(983, 615);
+            this.ClientSize = new System.Drawing.Size(983, 681);
             this.Controls.Add(this.groupBoxQueries);
             this.Controls.Add(this.groupBoxDisplayType);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonSqlOk);
             this.Controls.Add(this.myMap);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "RouteLine";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -404,7 +420,10 @@
             this.groupBoxQueries.PerformLayout();
             this.panelSelectedQuery.ResumeLayout(false);
             this.panelSelectedQuery.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -430,8 +449,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogXml;
         private System.Windows.Forms.CheckedListBox checkedListBoxQueries;
         private System.Windows.Forms.Button buttonDeleteQuery;
-        private System.Windows.Forms.Button buttonLoadQuery;
-        private System.Windows.Forms.Button buttonSaveQuery;
         private System.Windows.Forms.Button buttonNewQueryCancel;
         private System.Windows.Forms.Button buttonNewQueryOk;
         private System.Windows.Forms.SaveFileDialog saveFileDialogXml;
@@ -442,6 +459,10 @@
         private System.Windows.Forms.Label labelQueryCount;
         private System.Windows.Forms.Button buttonQueryDown;
         private System.Windows.Forms.Button buttonQueryUp;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fájlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemLoad;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSave;
 
     }
 }

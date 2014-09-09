@@ -172,47 +172,12 @@ namespace RouteLineUI
 
         private void buttonSaveQuery_Click(object sender, EventArgs e)
         {
-            saveFileDialogXml.ShowDialog();
-
-            if (saveFileDialogXml.FileName != "")
-            {
-                FileStream fs = (FileStream)saveFileDialogXml.OpenFile();
-                XmlSerializer writer = new XmlSerializer(typeof(List<Query>));
-                writer.Serialize(fs, checkedListBoxQueries.Items.Cast<Query>().ToList());
-                fs.Close();
-            }
+            
         }
 
         private void buttonLoadQuery_Click(object sender, EventArgs e)
         {
-            if (0 < checkedListBoxQueries.Items.Count)
-                if (MessageBox.Show("A nem mentett változtatások elvesznek. Biztosan folytatja?", "A nem mentett változtatások elvesznek", MessageBoxButtons.YesNo) == DialogResult.No) return;
-            openFileDialogXml.ShowDialog();
-            if (openFileDialogXml.FileName != "")
-            {
-                XmlSerializer reader = new XmlSerializer(typeof(List<Query>));
-                StreamReader file = new StreamReader(openFileDialogXml.FileName);
-                List<Query> loadedQueries = new List<Query>();
-                try
-                {
-                    loadedQueries = (List<Query>)reader.Deserialize(file);
-                }
-                catch (InvalidOperationException ex)
-                {
-                    MessageBox.Show("Hiba a fájl megnyitásakor: " + ex.Message);
-                    return;
-                }
-
-                checkedListBoxQueries.Items.Clear();
-
-                foreach (Query q in loadedQueries)
-                {
-                    checkedListBoxQueries.Items.Add(q, true);
-                }
-
-                this.emptyQueryPanel();
-                panelSelectedQuery.Visible = false;
-            }
+            
         }
 
         private void buttonDeleteQuery_Click(object sender, EventArgs e)
@@ -328,6 +293,51 @@ namespace RouteLineUI
             checkedListBoxQueries.Items[selectedIndex + changeIndex] = selectedQuery;
             checkedListBoxQueries.SetSelected(selectedIndex, false);
             checkedListBoxQueries.SetSelected(selectedIndex + changeIndex, true);
+        }
+
+        private void toolStripMenuItemLoad_Click(object sender, EventArgs e)
+        {
+            if (0 < checkedListBoxQueries.Items.Count)
+                if (MessageBox.Show("A nem mentett változtatások elvesznek. Biztosan folytatja?", "A nem mentett változtatások elvesznek", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            openFileDialogXml.ShowDialog();
+            if (openFileDialogXml.FileName != "")
+            {
+                XmlSerializer reader = new XmlSerializer(typeof(List<Query>));
+                StreamReader file = new StreamReader(openFileDialogXml.FileName);
+                List<Query> loadedQueries = new List<Query>();
+                try
+                {
+                    loadedQueries = (List<Query>)reader.Deserialize(file);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show("Hiba a fájl megnyitásakor: " + ex.Message);
+                    return;
+                }
+
+                checkedListBoxQueries.Items.Clear();
+
+                foreach (Query q in loadedQueries)
+                {
+                    checkedListBoxQueries.Items.Add(q, true);
+                }
+
+                this.emptyQueryPanel();
+                panelSelectedQuery.Visible = false;
+            }
+        }
+
+        private void toolStripMenuItemSave_Click(object sender, EventArgs e)
+        {
+            saveFileDialogXml.ShowDialog();
+
+            if (saveFileDialogXml.FileName != "")
+            {
+                FileStream fs = (FileStream)saveFileDialogXml.OpenFile();
+                XmlSerializer writer = new XmlSerializer(typeof(List<Query>));
+                writer.Serialize(fs, checkedListBoxQueries.Items.Cast<Query>().ToList());
+                fs.Close();
+            }
         }
     }
 }
