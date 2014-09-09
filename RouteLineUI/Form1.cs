@@ -50,7 +50,7 @@ namespace RouteLineUI
             myMap.Overlays.Add(markerOverlay);
             panelColorSample.BackColor = colorDialogQuery.Color;
             checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where tracking_session_id = 1000 order by ts limit 500", color = "Blue" }, true);
-            //checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
+            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -272,6 +272,15 @@ namespace RouteLineUI
             if (colorDialogQuery.ShowDialog() == DialogResult.OK)
             {
                 panelColorSample.BackColor = colorDialogQuery.Color;
+            }
+        }
+
+        private void buttonCloneQuery_Click(object sender, EventArgs e)
+        {
+            if (checkedListBoxQueries.SelectedItems.Count == 1)
+            {
+                Query itemToClone = (Query)checkedListBoxQueries.SelectedItems[0];
+                checkedListBoxQueries.Items.Add(itemToClone);
             }
         }
     }

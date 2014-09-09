@@ -56,6 +56,7 @@
             this.openFileDialogXml = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogXml = new System.Windows.Forms.SaveFileDialog();
             this.colorDialogQuery = new System.Windows.Forms.ColorDialog();
+            this.buttonCloneQuery = new System.Windows.Forms.Button();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             this.panelSelectedQuery.SuspendLayout();
@@ -152,6 +153,7 @@
             // 
             // groupBoxQueries
             // 
+            this.groupBoxQueries.Controls.Add(this.buttonCloneQuery);
             this.groupBoxQueries.Controls.Add(this.buttonDeleteQuery);
             this.groupBoxQueries.Controls.Add(this.buttonLoadQuery);
             this.groupBoxQueries.Controls.Add(this.buttonSaveQuery);
@@ -338,6 +340,16 @@
             // 
             this.colorDialogQuery.Color = System.Drawing.Color.Blue;
             // 
+            // buttonCloneQuery
+            // 
+            this.buttonCloneQuery.Location = new System.Drawing.Point(168, 164);
+            this.buttonCloneQuery.Name = "buttonCloneQuery";
+            this.buttonCloneQuery.Size = new System.Drawing.Size(75, 23);
+            this.buttonCloneQuery.TabIndex = 19;
+            this.buttonCloneQuery.Text = "Klónoz";
+            this.buttonCloneQuery.UseVisualStyleBackColor = true;
+            this.buttonCloneQuery.Click += new System.EventHandler(this.buttonCloneQuery_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -390,6 +402,7 @@
         private System.Windows.Forms.ColorDialog colorDialogQuery;
         private System.Windows.Forms.Button buttonQueryColor;
         private System.Windows.Forms.Panel panelColorSample;
+        private System.Windows.Forms.Button buttonCloneQuery;
 
     }
 }
