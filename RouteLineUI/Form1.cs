@@ -41,10 +41,6 @@ namespace RouteLineUI
 
         private void Form1_Load(Object sender, EventArgs e)
         {
-            //FormAuth authForm = new FormAuth();
-            //authForm.Show();
-            //this.Hide();
-
             myMap.DisableFocusOnMouseEnter = true;
             myMap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
@@ -67,6 +63,8 @@ namespace RouteLineUI
             this.routes = new List<Route>();
             List<Query> checkedQueries = checkedListBoxQueries.CheckedItems.Cast<Query>().ToList();
             int rowCount = 0;
+            buttonSqlOk.Text = "Töltés...";
+            buttonSqlOk.Enabled = false;
             await Task.Run(() =>
             {
                 foreach (Query q in checkedQueries)
@@ -90,6 +88,8 @@ namespace RouteLineUI
             });
 
             labelQueryCount.Text = labelQueryCountText + rowCount.ToString();
+            buttonSqlOk.Text = "Mutat";
+            buttonSqlOk.Enabled = true;
 
             if (radioButtonMarker.Checked)
             {
@@ -168,16 +168,6 @@ namespace RouteLineUI
             checkedListBoxQueries.Items.Remove(checkedListBoxQueries.Items[checkedListBoxQueries.SelectedIndex]);
             this.emptyQueryPanel();
             panelSelectedQuery.Visible = false;
-        }
-
-        private void buttonSaveQuery_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void buttonLoadQuery_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void buttonDeleteQuery_Click(object sender, EventArgs e)
