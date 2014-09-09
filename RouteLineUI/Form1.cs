@@ -39,14 +39,18 @@ namespace RouteLineUI
 
         private void Form1_Load(Object sender, EventArgs e)
         {
+            //FormAuth authForm = new FormAuth();
+            //authForm.Show();
+            //this.Hide();
+
             myMap.DisableFocusOnMouseEnter = true;
             myMap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
             panelColorSample.BackColor = colorDialogQuery.Color;
-            //checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where id < 500", color = "Blue" }, true);
-            //checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
+            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where id < 500", color = "Blue" }, true);
+            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -56,6 +60,8 @@ namespace RouteLineUI
 
         private async void buttonSqlOk_Click(object sender, EventArgs e)
         {
+            this.markerOverlay.Clear();
+            this.routesOverlay.Clear();
             this.routes = new List<Route>();
             List<Query> checkedQueries = checkedListBoxQueries.CheckedItems.Cast<Query>().ToList();
             await Task.Run(() =>
