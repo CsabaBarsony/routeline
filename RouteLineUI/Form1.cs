@@ -158,6 +158,8 @@ namespace RouteLineUI
             this.emptyQueryPanel();
             panelSelectedQuery.Visible = true;
             textBoxQueryName.Focus();
+            Random rnd = new Random();
+            panelColorSample.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
         }
 
         private void buttonRemoveQuery_Click(object sender, EventArgs e)
