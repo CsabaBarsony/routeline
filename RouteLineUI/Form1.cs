@@ -49,8 +49,8 @@ namespace RouteLineUI
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
             panelColorSample.BackColor = colorDialogQuery.Color;
-            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where id < 500", color = "Blue" }, true);
-            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
+            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where tracking_session_id = 1000 order by ts limit 500", color = "Blue" }, true);
+            //checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -104,14 +104,30 @@ namespace RouteLineUI
             {
                 foreach (Route r in this.routes)
                 {
+                    List<List<PointLatLng>> pointsList = new List<List<PointLatLng>>();
+                    int lastStatus = 0;
                     List<PointLatLng> points = new List<PointLatLng>();
+                    pointsList.Add(points);
                     foreach (Location l in r.locations)
                     {
-                        points.Add(new PointLatLng(l.lat, l.lon));
+                        if (l.status == lastStatus)
+                        {
+                            points.Add(new PointLatLng(l.lat, l.lon));
+                        }
+                        else
+                        {
+                            points = new List<PointLatLng>();
+                            pointsList.Add(points);
+                            lastStatus = l.status;
+                        }
                     }
-                    GMapRoute gMapRoute = new GMapRoute(points, r.query.name);
-                    gMapRoute.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 3f);
-                    markerOverlay.Routes.Add(gMapRoute);
+                    GMapRoute route;
+                    foreach (List<PointLatLng> p in pointsList)
+                    {
+                        route = new GMapRoute(p, "myRoute");
+                        route.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 3f);
+                        markerOverlay.Routes.Add(route);
+                    }
                 }
             }
         }
