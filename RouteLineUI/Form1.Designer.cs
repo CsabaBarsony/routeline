@@ -58,6 +58,8 @@
             this.colorDialogQuery = new System.Windows.Forms.ColorDialog();
             this.buttonCloneQuery = new System.Windows.Forms.Button();
             this.labelQueryCount = new System.Windows.Forms.Label();
+            this.buttonQueryUp = new System.Windows.Forms.Button();
+            this.buttonQueryDown = new System.Windows.Forms.Button();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             this.panelSelectedQuery.SuspendLayout();
@@ -154,6 +156,8 @@
             // 
             // groupBoxQueries
             // 
+            this.groupBoxQueries.Controls.Add(this.buttonQueryDown);
+            this.groupBoxQueries.Controls.Add(this.buttonQueryUp);
             this.groupBoxQueries.Controls.Add(this.labelQueryCount);
             this.groupBoxQueries.Controls.Add(this.buttonCloneQuery);
             this.groupBoxQueries.Controls.Add(this.buttonDeleteQuery);
@@ -205,7 +209,7 @@
             this.checkedListBoxQueries.FormattingEnabled = true;
             this.checkedListBoxQueries.Location = new System.Drawing.Point(7, 19);
             this.checkedListBoxQueries.Name = "checkedListBoxQueries";
-            this.checkedListBoxQueries.Size = new System.Drawing.Size(155, 169);
+            this.checkedListBoxQueries.Size = new System.Drawing.Size(155, 244);
             this.checkedListBoxQueries.TabIndex = 13;
             this.checkedListBoxQueries.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxQueries_SelectedIndexChanged);
             // 
@@ -221,23 +225,23 @@
             this.panelSelectedQuery.Controls.Add(this.textBoxQueryDescription);
             this.panelSelectedQuery.Controls.Add(this.textBoxQuerySql);
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
-            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 194);
+            this.panelSelectedQuery.Location = new System.Drawing.Point(6, 286);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
-            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 285);
+            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 216);
             this.panelSelectedQuery.TabIndex = 11;
             this.panelSelectedQuery.Visible = false;
             // 
             // panelColorSample
             // 
             this.panelColorSample.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelColorSample.Location = new System.Drawing.Point(80, 208);
+            this.panelColorSample.Location = new System.Drawing.Point(80, 164);
             this.panelColorSample.Name = "panelColorSample";
             this.panelColorSample.Size = new System.Drawing.Size(35, 23);
             this.panelColorSample.TabIndex = 18;
             // 
             // buttonQueryColor
             // 
-            this.buttonQueryColor.Location = new System.Drawing.Point(-1, 208);
+            this.buttonQueryColor.Location = new System.Drawing.Point(-1, 164);
             this.buttonQueryColor.Name = "buttonQueryColor";
             this.buttonQueryColor.Size = new System.Drawing.Size(75, 23);
             this.buttonQueryColor.TabIndex = 17;
@@ -247,7 +251,7 @@
             // 
             // buttonNewQueryCancel
             // 
-            this.buttonNewQueryCancel.Location = new System.Drawing.Point(81, 263);
+            this.buttonNewQueryCancel.Location = new System.Drawing.Point(80, 193);
             this.buttonNewQueryCancel.Name = "buttonNewQueryCancel";
             this.buttonNewQueryCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonNewQueryCancel.TabIndex = 8;
@@ -257,7 +261,7 @@
             // 
             // buttonNewQueryOk
             // 
-            this.buttonNewQueryOk.Location = new System.Drawing.Point(0, 263);
+            this.buttonNewQueryOk.Location = new System.Drawing.Point(-1, 193);
             this.buttonNewQueryOk.Name = "buttonNewQueryOk";
             this.buttonNewQueryOk.Size = new System.Drawing.Size(75, 23);
             this.buttonNewQueryOk.TabIndex = 7;
@@ -302,7 +306,7 @@
             this.textBoxQuerySql.Location = new System.Drawing.Point(0, 94);
             this.textBoxQuerySql.Multiline = true;
             this.textBoxQuerySql.Name = "textBoxQuerySql";
-            this.textBoxQuerySql.Size = new System.Drawing.Size(237, 108);
+            this.textBoxQuerySql.Size = new System.Drawing.Size(237, 64);
             this.textBoxQuerySql.TabIndex = 6;
             // 
             // labelQuerySql
@@ -361,6 +365,26 @@
             this.labelQueryCount.TabIndex = 19;
             this.labelQueryCount.Text = "lekérdezett sorok: 0";
             // 
+            // buttonQueryUp
+            // 
+            this.buttonQueryUp.Location = new System.Drawing.Point(168, 193);
+            this.buttonQueryUp.Name = "buttonQueryUp";
+            this.buttonQueryUp.Size = new System.Drawing.Size(75, 23);
+            this.buttonQueryUp.TabIndex = 20;
+            this.buttonQueryUp.Text = "Fel";
+            this.buttonQueryUp.UseVisualStyleBackColor = true;
+            this.buttonQueryUp.Click += new System.EventHandler(this.buttonQueryUp_Click);
+            // 
+            // buttonQueryDown
+            // 
+            this.buttonQueryDown.Location = new System.Drawing.Point(168, 222);
+            this.buttonQueryDown.Name = "buttonQueryDown";
+            this.buttonQueryDown.Size = new System.Drawing.Size(75, 23);
+            this.buttonQueryDown.TabIndex = 21;
+            this.buttonQueryDown.Text = "Le";
+            this.buttonQueryDown.UseVisualStyleBackColor = true;
+            this.buttonQueryDown.Click += new System.EventHandler(this.buttonQueryDown_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,6 +440,8 @@
         private System.Windows.Forms.Panel panelColorSample;
         private System.Windows.Forms.Button buttonCloneQuery;
         private System.Windows.Forms.Label labelQueryCount;
+        private System.Windows.Forms.Button buttonQueryDown;
+        private System.Windows.Forms.Button buttonQueryUp;
 
     }
 }

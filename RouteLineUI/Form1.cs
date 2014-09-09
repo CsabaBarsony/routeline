@@ -290,5 +290,42 @@ namespace RouteLineUI
                 checkedListBoxQueries.Items.Add(itemToClone);
             }
         }
+
+        private void buttonQueryUp_Click(object sender, EventArgs e)
+        {
+            this.reorderList(true);
+        }
+
+        private void buttonQueryDown_Click(object sender, EventArgs e)
+        {
+            this.reorderList(false);
+        }
+
+        private void reorderList(bool up)
+        {
+            int changeIndex;
+            int indexOnEdge;
+
+            if (up)
+            {
+                changeIndex = -1;
+                indexOnEdge = 0;
+            }
+            else
+            {
+                changeIndex = 1;
+                indexOnEdge = checkedListBoxQueries.Items.Count - 1;
+            }
+
+            if (checkedListBoxQueries.SelectedItems.Count != 1) return;
+            Query selectedQuery = (Query)checkedListBoxQueries.SelectedItem;
+            int selectedIndex = checkedListBoxQueries.Items.IndexOf(selectedQuery);
+            if (selectedIndex == indexOnEdge) return;
+            Query queryToChange = (Query)checkedListBoxQueries.Items[selectedIndex + changeIndex];
+            checkedListBoxQueries.Items[selectedIndex] = queryToChange;
+            checkedListBoxQueries.Items[selectedIndex + changeIndex] = selectedQuery;
+            checkedListBoxQueries.SetSelected(selectedIndex, false);
+            checkedListBoxQueries.SetSelected(selectedIndex + changeIndex, true);
+        }
     }
 }
