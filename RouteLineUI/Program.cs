@@ -17,7 +17,7 @@ namespace RouteLineUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new Form1());
 
             //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 

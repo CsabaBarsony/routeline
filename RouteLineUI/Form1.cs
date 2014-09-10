@@ -17,7 +17,7 @@ using RouteLineUI.Classes;
 
 namespace RouteLineUI
 {
-    public partial class FormMain : Form
+    public partial class Form1 : Form
     {
         private GMapOverlay markerOverlay;
         private GMapOverlay routesOverlay;
@@ -27,7 +27,7 @@ namespace RouteLineUI
         private ColorConverter colorConverter;
         private string labelQueryCountText;
 
-        public FormMain()
+        public Form1()
         {
             this.markerOverlay = new GMapOverlay("markers");
             this.routesOverlay = new GMapOverlay("routes");
@@ -81,6 +81,7 @@ namespace RouteLineUI
                     }
                     routes.Add(new Route
                     {
+                        name = q.name,
                         query = new Query { name = q.name, description = q.description, sql = q.sql, color = q.color },
                         locations = location
                     });
@@ -88,9 +89,24 @@ namespace RouteLineUI
                 }
             });
 
+            tabControlTables.TabPages.Clear();
+            List<DataGridView> dataGrids = new List<DataGridView>();
+
             foreach (Route r in routes)
             {
+                DataGridView dataGridView = new DataGridView();
+                BindingSource source = new BindingSource();
+                dataGridView.DataSource = source;
+                dataGridView.Dock = DockStyle.Fill;
+                dataGrids.Add(dataGridView);
+                TabPage tabPage = new TabPage(r.name);
+                tabPage.Controls.Add(dataGridView);
+                tabControlTables.TabPages.Add(tabPage);
 
+                foreach (Location l in r.locations)
+                {
+                    source.Add(l);
+                }
             }
 
             labelQueryCount.Text = labelQueryCountText + rowCount.ToString();
@@ -336,11 +352,6 @@ namespace RouteLineUI
                 writer.Serialize(fs, checkedListBoxQueries.Items.Cast<Query>().ToList());
                 fs.Close();
             }
-        }
-
-        private void myMap_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

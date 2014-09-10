@@ -1,6 +1,6 @@
 ﻿namespace RouteLineUI
 {
-    partial class FormMain
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -36,6 +36,7 @@
             this.radioButtonMarker = new System.Windows.Forms.RadioButton();
             this.myMap = new GMap.NET.WindowsForms.GMapControl();
             this.groupBoxQueries = new System.Windows.Forms.GroupBox();
+            this.labelAccuracyMeter = new System.Windows.Forms.Label();
             this.labelMinAccuracy = new System.Windows.Forms.Label();
             this.numericUpDownMinAccuracy = new System.Windows.Forms.NumericUpDown();
             this.buttonQueryDown = new System.Windows.Forms.Button();
@@ -68,7 +69,7 @@
             this.tableLayoutPanel2Columns = new System.Windows.Forms.TableLayoutPanel();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
-            this.labelAccuracyMeter = new System.Windows.Forms.Label();
+            this.tabControlTables = new System.Windows.Forms.TabControl();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinAccuracy)).BeginInit();
@@ -76,6 +77,7 @@
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapAndTable)).BeginInit();
             this.splitContainerMapAndTable.Panel1.SuspendLayout();
+            this.splitContainerMapAndTable.Panel2.SuspendLayout();
             this.splitContainerMapAndTable.SuspendLayout();
             this.tableLayoutPanel2Columns.SuspendLayout();
             this.panelLeft.SuspendLayout();
@@ -171,7 +173,6 @@
             this.myMap.Size = new System.Drawing.Size(702, 426);
             this.myMap.TabIndex = 0;
             this.myMap.Zoom = 12D;
-            this.myMap.Load += new System.EventHandler(this.myMap_Load);
             // 
             // groupBoxQueries
             // 
@@ -193,6 +194,15 @@
             this.groupBoxQueries.TabIndex = 6;
             this.groupBoxQueries.TabStop = false;
             this.groupBoxQueries.Text = "Lekérdezések";
+            // 
+            // labelAccuracyMeter
+            // 
+            this.labelAccuracyMeter.AutoSize = true;
+            this.labelAccuracyMeter.Location = new System.Drawing.Point(133, 239);
+            this.labelAccuracyMeter.Name = "labelAccuracyMeter";
+            this.labelAccuracyMeter.Size = new System.Drawing.Size(33, 13);
+            this.labelAccuracyMeter.TabIndex = 24;
+            this.labelAccuracyMeter.Text = "méter";
             // 
             // labelMinAccuracy
             // 
@@ -433,14 +443,14 @@
             // toolStripMenuItemLoad
             // 
             this.toolStripMenuItemLoad.Name = "toolStripMenuItemLoad";
-            this.toolStripMenuItemLoad.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemLoad.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItemLoad.Text = "Betölt";
             this.toolStripMenuItemLoad.Click += new System.EventHandler(this.toolStripMenuItemLoad_Click);
             // 
             // toolStripMenuItemSave
             // 
             this.toolStripMenuItemSave.Name = "toolStripMenuItemSave";
-            this.toolStripMenuItemSave.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSave.Size = new System.Drawing.Size(105, 22);
             this.toolStripMenuItemSave.Text = "Ment";
             this.toolStripMenuItemSave.Click += new System.EventHandler(this.toolStripMenuItemSave_Click);
             // 
@@ -455,6 +465,10 @@
             // splitContainerMapAndTable.Panel1
             // 
             this.splitContainerMapAndTable.Panel1.Controls.Add(this.myMap);
+            // 
+            // splitContainerMapAndTable.Panel2
+            // 
+            this.splitContainerMapAndTable.Panel2.Controls.Add(this.tabControlTables);
             this.splitContainerMapAndTable.Size = new System.Drawing.Size(702, 597);
             this.splitContainerMapAndTable.SplitterDistance = 426;
             this.splitContainerMapAndTable.TabIndex = 8;
@@ -498,16 +512,16 @@
             this.panelRight.Size = new System.Drawing.Size(702, 597);
             this.panelRight.TabIndex = 1;
             // 
-            // labelAccuracyMeter
+            // tabControlTables
             // 
-            this.labelAccuracyMeter.AutoSize = true;
-            this.labelAccuracyMeter.Location = new System.Drawing.Point(133, 239);
-            this.labelAccuracyMeter.Name = "labelAccuracyMeter";
-            this.labelAccuracyMeter.Size = new System.Drawing.Size(33, 13);
-            this.labelAccuracyMeter.TabIndex = 24;
-            this.labelAccuracyMeter.Text = "méter";
+            this.tabControlTables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlTables.Location = new System.Drawing.Point(0, 0);
+            this.tabControlTables.Name = "tabControlTables";
+            this.tabControlTables.SelectedIndex = 0;
+            this.tabControlTables.Size = new System.Drawing.Size(702, 167);
+            this.tabControlTables.TabIndex = 0;
             // 
-            // FormMain
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -515,7 +529,7 @@
             this.Controls.Add(this.tableLayoutPanel2Columns);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "FormMain";
+            this.Name = "Form1";
             this.Text = "RouteLine";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBoxDisplayType.ResumeLayout(false);
@@ -528,6 +542,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainerMapAndTable.Panel1.ResumeLayout(false);
+            this.splitContainerMapAndTable.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapAndTable)).EndInit();
             this.splitContainerMapAndTable.ResumeLayout(false);
             this.tableLayoutPanel2Columns.ResumeLayout(false);
@@ -581,6 +596,7 @@
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Label labelAccuracyMeter;
+        private System.Windows.Forms.TabControl tabControlTables;
 
     }
 }
