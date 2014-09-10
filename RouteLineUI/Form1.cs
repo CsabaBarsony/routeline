@@ -43,12 +43,13 @@ namespace RouteLineUI
         {
             myMap.DisableFocusOnMouseEnter = true;
             myMap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
+            myMap.Zoom = 10.0;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
             panelColorSample.BackColor = colorDialogQuery.Color;
             checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where tracking_session_id = 1000 order by ts limit 500", color = "Blue" }, true);
-            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Green" }, true);
+            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Red" }, true);
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -87,6 +88,11 @@ namespace RouteLineUI
                 }
             });
 
+            foreach (Route r in routes)
+            {
+
+            }
+
             labelQueryCount.Text = labelQueryCountText + rowCount.ToString();
             buttonSqlOk.Text = "Mutat";
             buttonSqlOk.Enabled = true;
@@ -95,13 +101,14 @@ namespace RouteLineUI
             {
                 foreach (Route r in this.routes)
                 {
-                    Bitmap m = new Bitmap(10, 10);
+                    Bitmap m = new Bitmap(20, 20);
                     Graphics g = Graphics.FromImage(m);
                     Color color = (Color)colorConverter.ConvertFromString(r.query.color);
                     Brush brush = new SolidBrush(color);
                     g.FillEllipse(brush, 0f, 0f, 10f, 10f);
                     foreach (Location l in r.locations)
                     {
+                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) break;
                         markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), m));
                     }
                 }
@@ -111,12 +118,13 @@ namespace RouteLineUI
                 foreach (Route r in this.routes)
                 {
                     List<List<PointLatLng>> pointsList = new List<List<PointLatLng>>();
-                    int lastStatus = 0;
+                    int lastTrackingSessionId = 0;
                     List<PointLatLng> points = new List<PointLatLng>();
                     pointsList.Add(points);
                     foreach (Location l in r.locations)
                     {
-                        if (l.status == lastStatus)
+                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) break;
+                        if (l.trackingSessionId == lastTrackingSessionId)
                         {
                             points.Add(new PointLatLng(l.lat, l.lon));
                         }
@@ -124,14 +132,14 @@ namespace RouteLineUI
                         {
                             points = new List<PointLatLng>();
                             pointsList.Add(points);
-                            lastStatus = l.status;
+                            lastTrackingSessionId = l.trackingSessionId;
                         }
                     }
                     GMapRoute route;
                     foreach (List<PointLatLng> p in pointsList)
                     {
                         route = new GMapRoute(p, "myRoute");
-                        route.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 3f);
+                        route.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 1f);
                         markerOverlay.Routes.Add(route);
                     }
                 }
@@ -328,6 +336,11 @@ namespace RouteLineUI
                 writer.Serialize(fs, checkedListBoxQueries.Items.Cast<Query>().ToList());
                 fs.Close();
             }
+        }
+
+        private void myMap_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

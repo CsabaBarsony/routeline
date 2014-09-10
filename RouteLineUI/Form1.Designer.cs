@@ -36,6 +36,12 @@
             this.radioButtonMarker = new System.Windows.Forms.RadioButton();
             this.myMap = new GMap.NET.WindowsForms.GMapControl();
             this.groupBoxQueries = new System.Windows.Forms.GroupBox();
+            this.labelMinAccuracy = new System.Windows.Forms.Label();
+            this.numericUpDownMinAccuracy = new System.Windows.Forms.NumericUpDown();
+            this.buttonQueryDown = new System.Windows.Forms.Button();
+            this.buttonQueryUp = new System.Windows.Forms.Button();
+            this.labelQueryCount = new System.Windows.Forms.Label();
+            this.buttonCloneQuery = new System.Windows.Forms.Button();
             this.buttonDeleteQuery = new System.Windows.Forms.Button();
             this.checkedListBoxQueries = new System.Windows.Forms.CheckedListBox();
             this.panelSelectedQuery = new System.Windows.Forms.Panel();
@@ -54,23 +60,31 @@
             this.openFileDialogXml = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogXml = new System.Windows.Forms.SaveFileDialog();
             this.colorDialogQuery = new System.Windows.Forms.ColorDialog();
-            this.buttonCloneQuery = new System.Windows.Forms.Button();
-            this.labelQueryCount = new System.Windows.Forms.Label();
-            this.buttonQueryUp = new System.Windows.Forms.Button();
-            this.buttonQueryDown = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fájlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainerMapAndTable = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel2Columns = new System.Windows.Forms.TableLayoutPanel();
+            this.panelLeft = new System.Windows.Forms.Panel();
+            this.panelRight = new System.Windows.Forms.Panel();
+            this.labelAccuracyMeter = new System.Windows.Forms.Label();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinAccuracy)).BeginInit();
             this.panelSelectedQuery.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapAndTable)).BeginInit();
+            this.splitContainerMapAndTable.Panel1.SuspendLayout();
+            this.splitContainerMapAndTable.SuspendLayout();
+            this.tableLayoutPanel2Columns.SuspendLayout();
+            this.panelLeft.SuspendLayout();
+            this.panelRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonSqlOk
             // 
-            this.buttonSqlOk.Location = new System.Drawing.Point(12, 27);
+            this.buttonSqlOk.Location = new System.Drawing.Point(3, 3);
             this.buttonSqlOk.Name = "buttonSqlOk";
             this.buttonSqlOk.Size = new System.Drawing.Size(75, 23);
             this.buttonSqlOk.TabIndex = 2;
@@ -80,7 +94,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(93, 27);
+            this.buttonClear.Location = new System.Drawing.Point(84, 3);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 3;
@@ -93,9 +107,9 @@
             this.groupBoxDisplayType.Controls.Add(this.radioButtonHeatMap);
             this.groupBoxDisplayType.Controls.Add(this.radioButtonLine);
             this.groupBoxDisplayType.Controls.Add(this.radioButtonMarker);
-            this.groupBoxDisplayType.Location = new System.Drawing.Point(12, 56);
+            this.groupBoxDisplayType.Location = new System.Drawing.Point(3, 38);
             this.groupBoxDisplayType.Name = "groupBoxDisplayType";
-            this.groupBoxDisplayType.Size = new System.Drawing.Size(250, 35);
+            this.groupBoxDisplayType.Size = new System.Drawing.Size(263, 35);
             this.groupBoxDisplayType.TabIndex = 4;
             this.groupBoxDisplayType.TabStop = false;
             // 
@@ -136,11 +150,12 @@
             // 
             this.myMap.Bearing = 0F;
             this.myMap.CanDragMap = true;
+            this.myMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myMap.EmptyTileColor = System.Drawing.Color.Navy;
             this.myMap.GrayScaleMode = false;
             this.myMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.myMap.LevelsKeepInMemmory = 5;
-            this.myMap.Location = new System.Drawing.Point(268, 27);
+            this.myMap.Location = new System.Drawing.Point(0, 0);
             this.myMap.MarkersEnabled = true;
             this.myMap.MaxZoom = 18;
             this.myMap.MinZoom = 2;
@@ -153,12 +168,16 @@
             this.myMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.myMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.myMap.ShowTileGridLines = false;
-            this.myMap.Size = new System.Drawing.Size(703, 576);
+            this.myMap.Size = new System.Drawing.Size(702, 426);
             this.myMap.TabIndex = 0;
             this.myMap.Zoom = 12D;
+            this.myMap.Load += new System.EventHandler(this.myMap_Load);
             // 
             // groupBoxQueries
             // 
+            this.groupBoxQueries.Controls.Add(this.labelAccuracyMeter);
+            this.groupBoxQueries.Controls.Add(this.labelMinAccuracy);
+            this.groupBoxQueries.Controls.Add(this.numericUpDownMinAccuracy);
             this.groupBoxQueries.Controls.Add(this.buttonQueryDown);
             this.groupBoxQueries.Controls.Add(this.buttonQueryUp);
             this.groupBoxQueries.Controls.Add(this.labelQueryCount);
@@ -168,16 +187,81 @@
             this.groupBoxQueries.Controls.Add(this.panelSelectedQuery);
             this.groupBoxQueries.Controls.Add(this.buttonAddQuery);
             this.groupBoxQueries.Controls.Add(this.buttonRemoveQuery);
-            this.groupBoxQueries.Location = new System.Drawing.Point(12, 97);
+            this.groupBoxQueries.Location = new System.Drawing.Point(3, 79);
             this.groupBoxQueries.Name = "groupBoxQueries";
-            this.groupBoxQueries.Size = new System.Drawing.Size(250, 572);
+            this.groupBoxQueries.Size = new System.Drawing.Size(263, 515);
             this.groupBoxQueries.TabIndex = 6;
             this.groupBoxQueries.TabStop = false;
             this.groupBoxQueries.Text = "Lekérdezések";
             // 
+            // labelMinAccuracy
+            // 
+            this.labelMinAccuracy.AutoSize = true;
+            this.labelMinAccuracy.Location = new System.Drawing.Point(6, 221);
+            this.labelMinAccuracy.Name = "labelMinAccuracy";
+            this.labelMinAccuracy.Size = new System.Drawing.Size(60, 13);
+            this.labelMinAccuracy.TabIndex = 23;
+            this.labelMinAccuracy.Text = "Pontosság:";
+            // 
+            // numericUpDownMinAccuracy
+            // 
+            this.numericUpDownMinAccuracy.Location = new System.Drawing.Point(7, 237);
+            this.numericUpDownMinAccuracy.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownMinAccuracy.Name = "numericUpDownMinAccuracy";
+            this.numericUpDownMinAccuracy.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownMinAccuracy.TabIndex = 22;
+            this.numericUpDownMinAccuracy.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
+            // buttonQueryDown
+            // 
+            this.buttonQueryDown.Location = new System.Drawing.Point(182, 164);
+            this.buttonQueryDown.Name = "buttonQueryDown";
+            this.buttonQueryDown.Size = new System.Drawing.Size(75, 23);
+            this.buttonQueryDown.TabIndex = 21;
+            this.buttonQueryDown.Text = "Le";
+            this.buttonQueryDown.UseVisualStyleBackColor = true;
+            this.buttonQueryDown.Click += new System.EventHandler(this.buttonQueryDown_Click);
+            // 
+            // buttonQueryUp
+            // 
+            this.buttonQueryUp.Location = new System.Drawing.Point(182, 135);
+            this.buttonQueryUp.Name = "buttonQueryUp";
+            this.buttonQueryUp.Size = new System.Drawing.Size(75, 23);
+            this.buttonQueryUp.TabIndex = 20;
+            this.buttonQueryUp.Text = "Fel";
+            this.buttonQueryUp.UseVisualStyleBackColor = true;
+            this.buttonQueryUp.Click += new System.EventHandler(this.buttonQueryUp_Click);
+            // 
+            // labelQueryCount
+            // 
+            this.labelQueryCount.AutoSize = true;
+            this.labelQueryCount.Location = new System.Drawing.Point(3, 492);
+            this.labelQueryCount.Name = "labelQueryCount";
+            this.labelQueryCount.Size = new System.Drawing.Size(100, 13);
+            this.labelQueryCount.TabIndex = 19;
+            this.labelQueryCount.Text = "lekérdezett sorok: 0";
+            // 
+            // buttonCloneQuery
+            // 
+            this.buttonCloneQuery.Location = new System.Drawing.Point(182, 106);
+            this.buttonCloneQuery.Name = "buttonCloneQuery";
+            this.buttonCloneQuery.Size = new System.Drawing.Size(75, 23);
+            this.buttonCloneQuery.TabIndex = 19;
+            this.buttonCloneQuery.Text = "Klónoz";
+            this.buttonCloneQuery.UseVisualStyleBackColor = true;
+            this.buttonCloneQuery.Click += new System.EventHandler(this.buttonCloneQuery_Click);
+            // 
             // buttonDeleteQuery
             // 
-            this.buttonDeleteQuery.Location = new System.Drawing.Point(168, 77);
+            this.buttonDeleteQuery.Location = new System.Drawing.Point(182, 77);
             this.buttonDeleteQuery.Name = "buttonDeleteQuery";
             this.buttonDeleteQuery.Size = new System.Drawing.Size(75, 23);
             this.buttonDeleteQuery.TabIndex = 16;
@@ -190,7 +274,7 @@
             this.checkedListBoxQueries.FormattingEnabled = true;
             this.checkedListBoxQueries.Location = new System.Drawing.Point(7, 19);
             this.checkedListBoxQueries.Name = "checkedListBoxQueries";
-            this.checkedListBoxQueries.Size = new System.Drawing.Size(155, 199);
+            this.checkedListBoxQueries.Size = new System.Drawing.Size(169, 199);
             this.checkedListBoxQueries.TabIndex = 13;
             this.checkedListBoxQueries.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxQueries_SelectedIndexChanged);
             // 
@@ -206,9 +290,9 @@
             this.panelSelectedQuery.Controls.Add(this.textBoxQueryDescription);
             this.panelSelectedQuery.Controls.Add(this.textBoxQuerySql);
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
-            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 249);
+            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 263);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
-            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 216);
+            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 265);
             this.panelSelectedQuery.TabIndex = 11;
             this.panelSelectedQuery.Visible = false;
             // 
@@ -301,7 +385,7 @@
             // 
             // buttonAddQuery
             // 
-            this.buttonAddQuery.Location = new System.Drawing.Point(168, 19);
+            this.buttonAddQuery.Location = new System.Drawing.Point(182, 19);
             this.buttonAddQuery.Name = "buttonAddQuery";
             this.buttonAddQuery.Size = new System.Drawing.Size(75, 23);
             this.buttonAddQuery.TabIndex = 8;
@@ -311,7 +395,7 @@
             // 
             // buttonRemoveQuery
             // 
-            this.buttonRemoveQuery.Location = new System.Drawing.Point(168, 48);
+            this.buttonRemoveQuery.Location = new System.Drawing.Point(182, 48);
             this.buttonRemoveQuery.Name = "buttonRemoveQuery";
             this.buttonRemoveQuery.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveQuery.TabIndex = 9;
@@ -326,45 +410,6 @@
             // colorDialogQuery
             // 
             this.colorDialogQuery.Color = System.Drawing.Color.Blue;
-            // 
-            // buttonCloneQuery
-            // 
-            this.buttonCloneQuery.Location = new System.Drawing.Point(168, 106);
-            this.buttonCloneQuery.Name = "buttonCloneQuery";
-            this.buttonCloneQuery.Size = new System.Drawing.Size(75, 23);
-            this.buttonCloneQuery.TabIndex = 19;
-            this.buttonCloneQuery.Text = "Klónoz";
-            this.buttonCloneQuery.UseVisualStyleBackColor = true;
-            this.buttonCloneQuery.Click += new System.EventHandler(this.buttonCloneQuery_Click);
-            // 
-            // labelQueryCount
-            // 
-            this.labelQueryCount.AutoSize = true;
-            this.labelQueryCount.Location = new System.Drawing.Point(2, 556);
-            this.labelQueryCount.Name = "labelQueryCount";
-            this.labelQueryCount.Size = new System.Drawing.Size(100, 13);
-            this.labelQueryCount.TabIndex = 19;
-            this.labelQueryCount.Text = "lekérdezett sorok: 0";
-            // 
-            // buttonQueryUp
-            // 
-            this.buttonQueryUp.Location = new System.Drawing.Point(168, 135);
-            this.buttonQueryUp.Name = "buttonQueryUp";
-            this.buttonQueryUp.Size = new System.Drawing.Size(75, 23);
-            this.buttonQueryUp.TabIndex = 20;
-            this.buttonQueryUp.Text = "Fel";
-            this.buttonQueryUp.UseVisualStyleBackColor = true;
-            this.buttonQueryUp.Click += new System.EventHandler(this.buttonQueryUp_Click);
-            // 
-            // buttonQueryDown
-            // 
-            this.buttonQueryDown.Location = new System.Drawing.Point(168, 164);
-            this.buttonQueryDown.Name = "buttonQueryDown";
-            this.buttonQueryDown.Size = new System.Drawing.Size(75, 23);
-            this.buttonQueryDown.TabIndex = 21;
-            this.buttonQueryDown.Text = "Le";
-            this.buttonQueryDown.UseVisualStyleBackColor = true;
-            this.buttonQueryDown.Click += new System.EventHandler(this.buttonQueryDown_Click);
             // 
             // menuStrip1
             // 
@@ -399,16 +444,75 @@
             this.toolStripMenuItemSave.Text = "Ment";
             this.toolStripMenuItemSave.Click += new System.EventHandler(this.toolStripMenuItemSave_Click);
             // 
+            // splitContainerMapAndTable
+            // 
+            this.splitContainerMapAndTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMapAndTable.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerMapAndTable.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMapAndTable.Name = "splitContainerMapAndTable";
+            this.splitContainerMapAndTable.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerMapAndTable.Panel1
+            // 
+            this.splitContainerMapAndTable.Panel1.Controls.Add(this.myMap);
+            this.splitContainerMapAndTable.Size = new System.Drawing.Size(702, 597);
+            this.splitContainerMapAndTable.SplitterDistance = 426;
+            this.splitContainerMapAndTable.TabIndex = 8;
+            // 
+            // tableLayoutPanel2Columns
+            // 
+            this.tableLayoutPanel2Columns.ColumnCount = 2;
+            this.tableLayoutPanel2Columns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 275F));
+            this.tableLayoutPanel2Columns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2Columns.Controls.Add(this.panelLeft, 0, 0);
+            this.tableLayoutPanel2Columns.Controls.Add(this.panelRight, 1, 0);
+            this.tableLayoutPanel2Columns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2Columns.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel2Columns.Name = "tableLayoutPanel2Columns";
+            this.tableLayoutPanel2Columns.RowCount = 1;
+            this.tableLayoutPanel2Columns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2Columns.Size = new System.Drawing.Size(983, 603);
+            this.tableLayoutPanel2Columns.TabIndex = 1;
+            // 
+            // panelLeft
+            // 
+            this.panelLeft.AutoScroll = true;
+            this.panelLeft.BackColor = System.Drawing.SystemColors.Control;
+            this.panelLeft.Controls.Add(this.buttonSqlOk);
+            this.panelLeft.Controls.Add(this.groupBoxDisplayType);
+            this.panelLeft.Controls.Add(this.buttonClear);
+            this.panelLeft.Controls.Add(this.groupBoxQueries);
+            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelLeft.Location = new System.Drawing.Point(3, 3);
+            this.panelLeft.Name = "panelLeft";
+            this.panelLeft.Size = new System.Drawing.Size(269, 597);
+            this.panelLeft.TabIndex = 0;
+            // 
+            // panelRight
+            // 
+            this.panelRight.BackColor = System.Drawing.SystemColors.Control;
+            this.panelRight.Controls.Add(this.splitContainerMapAndTable);
+            this.panelRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRight.Location = new System.Drawing.Point(278, 3);
+            this.panelRight.Name = "panelRight";
+            this.panelRight.Size = new System.Drawing.Size(702, 597);
+            this.panelRight.TabIndex = 1;
+            // 
+            // labelAccuracyMeter
+            // 
+            this.labelAccuracyMeter.AutoSize = true;
+            this.labelAccuracyMeter.Location = new System.Drawing.Point(133, 239);
+            this.labelAccuracyMeter.Name = "labelAccuracyMeter";
+            this.labelAccuracyMeter.Size = new System.Drawing.Size(33, 13);
+            this.labelAccuracyMeter.TabIndex = 24;
+            this.labelAccuracyMeter.Text = "méter";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(983, 681);
-            this.Controls.Add(this.groupBoxQueries);
-            this.Controls.Add(this.groupBoxDisplayType);
-            this.Controls.Add(this.buttonClear);
-            this.Controls.Add(this.buttonSqlOk);
-            this.Controls.Add(this.myMap);
+            this.ClientSize = new System.Drawing.Size(983, 627);
+            this.Controls.Add(this.tableLayoutPanel2Columns);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
@@ -418,10 +522,17 @@
             this.groupBoxDisplayType.PerformLayout();
             this.groupBoxQueries.ResumeLayout(false);
             this.groupBoxQueries.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinAccuracy)).EndInit();
             this.panelSelectedQuery.ResumeLayout(false);
             this.panelSelectedQuery.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.splitContainerMapAndTable.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapAndTable)).EndInit();
+            this.splitContainerMapAndTable.ResumeLayout(false);
+            this.tableLayoutPanel2Columns.ResumeLayout(false);
+            this.panelLeft.ResumeLayout(false);
+            this.panelRight.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,6 +574,13 @@
         private System.Windows.Forms.ToolStripMenuItem fájlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemLoad;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSave;
+        private System.Windows.Forms.Label labelMinAccuracy;
+        private System.Windows.Forms.NumericUpDown numericUpDownMinAccuracy;
+        private System.Windows.Forms.SplitContainer splitContainerMapAndTable;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2Columns;
+        private System.Windows.Forms.Panel panelLeft;
+        private System.Windows.Forms.Panel panelRight;
+        private System.Windows.Forms.Label labelAccuracyMeter;
 
     }
 }

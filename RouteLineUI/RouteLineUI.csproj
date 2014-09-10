@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Location.cs" />
+    <Compile Include="Classes\Marker.cs" />
     <Compile Include="Classes\Node.cs" />
     <Compile Include="Classes\Query.cs" />
     <Compile Include="Classes\Route.cs" />
