@@ -198,7 +198,7 @@
             // labelAccuracyMeter
             // 
             this.labelAccuracyMeter.AutoSize = true;
-            this.labelAccuracyMeter.Location = new System.Drawing.Point(133, 239);
+            this.labelAccuracyMeter.Location = new System.Drawing.Point(129, 209);
             this.labelAccuracyMeter.Name = "labelAccuracyMeter";
             this.labelAccuracyMeter.Size = new System.Drawing.Size(33, 13);
             this.labelAccuracyMeter.TabIndex = 24;
@@ -207,7 +207,7 @@
             // labelMinAccuracy
             // 
             this.labelMinAccuracy.AutoSize = true;
-            this.labelMinAccuracy.Location = new System.Drawing.Point(6, 221);
+            this.labelMinAccuracy.Location = new System.Drawing.Point(6, 191);
             this.labelMinAccuracy.Name = "labelMinAccuracy";
             this.labelMinAccuracy.Size = new System.Drawing.Size(60, 13);
             this.labelMinAccuracy.TabIndex = 23;
@@ -215,7 +215,7 @@
             // 
             // numericUpDownMinAccuracy
             // 
-            this.numericUpDownMinAccuracy.Location = new System.Drawing.Point(7, 237);
+            this.numericUpDownMinAccuracy.Location = new System.Drawing.Point(7, 207);
             this.numericUpDownMinAccuracy.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -284,7 +284,7 @@
             this.checkedListBoxQueries.FormattingEnabled = true;
             this.checkedListBoxQueries.Location = new System.Drawing.Point(7, 19);
             this.checkedListBoxQueries.Name = "checkedListBoxQueries";
-            this.checkedListBoxQueries.Size = new System.Drawing.Size(169, 199);
+            this.checkedListBoxQueries.Size = new System.Drawing.Size(169, 169);
             this.checkedListBoxQueries.TabIndex = 13;
             this.checkedListBoxQueries.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxQueries_SelectedIndexChanged);
             // 
@@ -300,9 +300,9 @@
             this.panelSelectedQuery.Controls.Add(this.textBoxQueryDescription);
             this.panelSelectedQuery.Controls.Add(this.textBoxQuerySql);
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
-            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 263);
+            this.panelSelectedQuery.Location = new System.Drawing.Point(7, 233);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
-            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 265);
+            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 218);
             this.panelSelectedQuery.TabIndex = 11;
             this.panelSelectedQuery.Visible = false;
             // 

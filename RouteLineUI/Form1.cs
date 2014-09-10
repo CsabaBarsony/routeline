@@ -117,7 +117,7 @@ namespace RouteLineUI
             {
                 foreach (Route r in this.routes)
                 {
-                    Bitmap m = new Bitmap(20, 20);
+                    Bitmap m = new Bitmap(10, 10);
                     Graphics g = Graphics.FromImage(m);
                     Color color = (Color)colorConverter.ConvertFromString(r.query.color);
                     Brush brush = new SolidBrush(color);
@@ -307,6 +307,9 @@ namespace RouteLineUI
             checkedListBoxQueries.Items[selectedIndex + changeIndex] = selectedQuery;
             checkedListBoxQueries.SetSelected(selectedIndex, false);
             checkedListBoxQueries.SetSelected(selectedIndex + changeIndex, true);
+            bool originalChecked = checkedListBoxQueries.GetItemChecked(selectedIndex);
+            checkedListBoxQueries.SetItemChecked(selectedIndex, checkedListBoxQueries.GetItemChecked(selectedIndex + changeIndex));
+            checkedListBoxQueries.SetItemChecked(selectedIndex + changeIndex, originalChecked);
         }
 
         private void toolStripMenuItemLoad_Click(object sender, EventArgs e)
