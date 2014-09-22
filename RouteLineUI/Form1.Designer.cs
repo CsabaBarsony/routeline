@@ -66,10 +66,10 @@
             this.toolStripMenuItemLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainerMapAndTable = new System.Windows.Forms.SplitContainer();
+            this.tabControlTables = new System.Windows.Forms.TabControl();
             this.tableLayoutPanel2Columns = new System.Windows.Forms.TableLayoutPanel();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
-            this.tabControlTables = new System.Windows.Forms.TabControl();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinAccuracy)).BeginInit();
@@ -173,6 +173,7 @@
             this.myMap.Size = new System.Drawing.Size(702, 426);
             this.myMap.TabIndex = 0;
             this.myMap.Zoom = 12D;
+            this.myMap.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.myMap_OnMarkerClick);
             // 
             // groupBoxQueries
             // 
@@ -302,7 +303,7 @@
             this.panelSelectedQuery.Controls.Add(this.labelQuerySql);
             this.panelSelectedQuery.Location = new System.Drawing.Point(7, 233);
             this.panelSelectedQuery.Name = "panelSelectedQuery";
-            this.panelSelectedQuery.Size = new System.Drawing.Size(237, 218);
+            this.panelSelectedQuery.Size = new System.Drawing.Size(250, 218);
             this.panelSelectedQuery.TabIndex = 11;
             this.panelSelectedQuery.Visible = false;
             // 
@@ -348,7 +349,7 @@
             // 
             this.textBoxQueryName.Location = new System.Drawing.Point(0, 16);
             this.textBoxQueryName.Name = "textBoxQueryName";
-            this.textBoxQueryName.Size = new System.Drawing.Size(237, 20);
+            this.textBoxQueryName.Size = new System.Drawing.Size(250, 20);
             this.textBoxQueryName.TabIndex = 4;
             // 
             // labelQueryName
@@ -373,7 +374,7 @@
             // 
             this.textBoxQueryDescription.Location = new System.Drawing.Point(0, 55);
             this.textBoxQueryDescription.Name = "textBoxQueryDescription";
-            this.textBoxQueryDescription.Size = new System.Drawing.Size(237, 20);
+            this.textBoxQueryDescription.Size = new System.Drawing.Size(250, 20);
             this.textBoxQueryDescription.TabIndex = 5;
             // 
             // textBoxQuerySql
@@ -381,7 +382,7 @@
             this.textBoxQuerySql.Location = new System.Drawing.Point(0, 94);
             this.textBoxQuerySql.Multiline = true;
             this.textBoxQuerySql.Name = "textBoxQuerySql";
-            this.textBoxQuerySql.Size = new System.Drawing.Size(237, 64);
+            this.textBoxQuerySql.Size = new System.Drawing.Size(250, 64);
             this.textBoxQuerySql.TabIndex = 6;
             // 
             // labelQuerySql
@@ -473,6 +474,15 @@
             this.splitContainerMapAndTable.SplitterDistance = 426;
             this.splitContainerMapAndTable.TabIndex = 8;
             // 
+            // tabControlTables
+            // 
+            this.tabControlTables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlTables.Location = new System.Drawing.Point(0, 0);
+            this.tabControlTables.Name = "tabControlTables";
+            this.tabControlTables.SelectedIndex = 0;
+            this.tabControlTables.Size = new System.Drawing.Size(702, 167);
+            this.tabControlTables.TabIndex = 0;
+            // 
             // tableLayoutPanel2Columns
             // 
             this.tableLayoutPanel2Columns.ColumnCount = 2;
@@ -511,15 +521,6 @@
             this.panelRight.Name = "panelRight";
             this.panelRight.Size = new System.Drawing.Size(702, 597);
             this.panelRight.TabIndex = 1;
-            // 
-            // tabControlTables
-            // 
-            this.tabControlTables.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlTables.Location = new System.Drawing.Point(0, 0);
-            this.tabControlTables.Name = "tabControlTables";
-            this.tabControlTables.SelectedIndex = 0;
-            this.tabControlTables.Size = new System.Drawing.Size(702, 167);
-            this.tabControlTables.TabIndex = 0;
             // 
             // Form1
             // 

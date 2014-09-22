@@ -24,6 +24,7 @@ namespace RouteLineUI
         private SqlReader sqlReader;
         private List<Route> routes;
         private List<Query> queries;
+        private List<DataGridView> dataGrids;
         private ColorConverter colorConverter;
         private string labelQueryCountText;
 
@@ -33,6 +34,7 @@ namespace RouteLineUI
             this.routesOverlay = new GMapOverlay("routes");
             this.sqlReader = new SqlReader("Server=csabavm;Port=5432;User Id=postgres;Password=Asd..123;Database=tmcdb_production;");
             this.queries = new List<Query>();
+            this.dataGrids = new List<DataGridView>();
             this.MouseWheel += new MouseEventHandler(MapMouseWheel);
             this.colorConverter = new ColorConverter();
             this.labelQueryCountText = "lekérdezett sorok: ";
@@ -90,7 +92,6 @@ namespace RouteLineUI
             });
 
             tabControlTables.TabPages.Clear();
-            List<DataGridView> dataGrids = new List<DataGridView>();
 
             foreach (Route r in routes)
             {
@@ -98,6 +99,9 @@ namespace RouteLineUI
                 BindingSource source = new BindingSource();
                 dataGridView.DataSource = source;
                 dataGridView.Dock = DockStyle.Fill;
+                dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+                dataGridView.CellClick += new DataGridViewCellEventHandler(this.dataGrid_CellClick);
                 dataGrids.Add(dataGridView);
                 TabPage tabPage = new TabPage(r.name);
                 tabPage.Controls.Add(dataGridView);
@@ -125,7 +129,8 @@ namespace RouteLineUI
                     foreach (Location l in r.locations)
                     {
                         if (l.accuracy > (double)numericUpDownMinAccuracy.Value) break;
-                        markerOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(l.lat, l.lon), m));
+                        Marker marker = new Marker(new PointLatLng(l.lat, l.lon), m, l.id, r);
+                        markerOverlay.Markers.Add(marker);
                     }
                 }
             }
@@ -155,7 +160,7 @@ namespace RouteLineUI
                     foreach (List<PointLatLng> p in pointsList)
                     {
                         route = new GMapRoute(p, "myRoute");
-                        route.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 1f);
+                        route.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 2f);
                         markerOverlay.Routes.Add(route);
                     }
                 }
@@ -209,6 +214,15 @@ namespace RouteLineUI
             {
                 MessageBox.Show("Minden mezőt ki kell tölteni!");
                 return;
+            }
+
+            foreach (Query q in checkedListBoxQueries.Items)
+            {
+                if (q.name == textBoxQueryName.Text)
+                {
+                    MessageBox.Show("Már létezik lekérdezés ilyen névvel: " + textBoxQueryName.Text);
+                    return;
+                }
             }
 
             Query newQuery = new Query
@@ -355,6 +369,44 @@ namespace RouteLineUI
                 writer.Serialize(fs, checkedListBoxQueries.Items.Cast<Query>().ToList());
                 fs.Close();
             }
+        }
+
+        private void myMap_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            Marker marker = item as Marker;
+            foreach (DataGridView dw in dataGrids)
+            {
+                foreach (DataGridViewRow r in dw.Rows)
+                {
+                    if (r.Cells[0].Value != null && r.Cells[0].Value.ToString() == marker.id.ToString())
+                    {
+                        dw.ClearSelection();
+                        r.Selected = true;
+                        dw.FirstDisplayedScrollingRowIndex = dw.SelectedRows[0].Index;
+                        foreach (TabPage tp in this.tabControlTables.TabPages)
+                        {
+                            if (tp.Text == marker.route.name) this.tabControlTables.SelectedTab = tp;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void dataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dw = sender as DataGridView;
+            String id = dw.SelectedRows[0].Cells[0].Value.ToString();
+            Marker marker = null;
+            foreach (Marker m in markerOverlay.Markers)
+            {
+                if (m.id.ToString() == id)
+                {
+                    marker = m;
+                    break;
+                } 
+            }
+            if (marker == null) return;
+            this.myMap.Position = marker.Position;
         }
     }
 }
