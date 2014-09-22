@@ -128,7 +128,7 @@ namespace RouteLineUI
                     g.FillEllipse(brush, 0f, 0f, 10f, 10f);
                     foreach (Location l in r.locations)
                     {
-                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) break;
+                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) continue;
                         Marker marker = new Marker(new PointLatLng(l.lat, l.lon), m, l.id, r);
                         markerOverlay.Markers.Add(marker);
                     }
@@ -144,7 +144,7 @@ namespace RouteLineUI
                     pointsList.Add(points);
                     foreach (Location l in r.locations)
                     {
-                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) break;
+                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) continue;
                         if (l.trackingSessionId == lastTrackingSessionId)
                         {
                             points.Add(new PointLatLng(l.lat, l.lon));
@@ -216,14 +216,14 @@ namespace RouteLineUI
                 return;
             }
 
-            foreach (Query q in checkedListBoxQueries.Items)
-            {
-                if (q.name == textBoxQueryName.Text)
-                {
-                    MessageBox.Show("Már létezik lekérdezés ilyen névvel: " + textBoxQueryName.Text);
-                    return;
-                }
-            }
+            //foreach (Query q in checkedListBoxQueries.Items)
+            //{
+            //    if (q.name == textBoxQueryName.Text)
+            //    {
+            //        MessageBox.Show("Már létezik lekérdezés ilyen névvel: " + textBoxQueryName.Text);
+            //        return;
+            //    }
+            //}
 
             Query newQuery = new Query
             {
