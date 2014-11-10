@@ -141,12 +141,15 @@ namespace RouteLineUI
                 {
                     List<List<PointLatLng>> pointsList = new List<List<PointLatLng>>();
                     int lastTrackingSessionId = 0;
+                    int lastUserId = 0;
+                    DateTime lastTimeStamp = new DateTime();
                     List<PointLatLng> points = new List<PointLatLng>();
                     pointsList.Add(points);
                     foreach (Location l in r.locations)
                     {
                         if (l.accuracy > (double)numericUpDownMinAccuracy.Value) continue;
-                        if (l.trackingSessionId == lastTrackingSessionId)
+                        TimeSpan ts = Convert.ToDateTime(l.ts) - lastTimeStamp;
+                        if (ts.TotalSeconds < 60.0 && lastUserId == l.userId)
                         {
                             points.Add(new PointLatLng(l.lat, l.lon));
                         }
@@ -154,8 +157,10 @@ namespace RouteLineUI
                         {
                             points = new List<PointLatLng>();
                             pointsList.Add(points);
-                            lastTrackingSessionId = l.trackingSessionId;
+                            //lastTrackingSessionId = l.trackingSessionId;
+                            lastUserId = l.userId;
                         }
+                        lastTimeStamp = Convert.ToDateTime(l.ts);
                     }
                     GMapRoute route;
                     foreach (List<PointLatLng> p in pointsList)
