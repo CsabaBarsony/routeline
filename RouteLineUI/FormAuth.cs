@@ -24,9 +24,15 @@ namespace RouteLineUI
 
         private void buttonCodeOk_Click(object sender, EventArgs e)
         {
-            if (textBoxCode.Text != "asdf")
+            if (textBoxInstallCode.Text != "?s77=mGV")
             {
                 MessageBox.Show("Hibás telepítési kód!");
+                return;
+            }
+
+            if(textBoxLicenseCode.Text != "9790")
+            {
+                MessageBox.Show("Hibás licenc kód!");
                 return;
             }
 

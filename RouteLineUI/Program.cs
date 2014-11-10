@@ -17,21 +17,21 @@ namespace RouteLineUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new Form1());
 
-            //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            //string[] settings = config.AppSettings.Settings.AllKeys;
-            //bool contains = settings.Contains("registered");
+            string[] settings = config.AppSettings.Settings.AllKeys;
+            bool contains = settings.Contains("registered");
 
-            //if (contains)
-            //{
-            //    Application.Run(new FormMain());
-            //}
-            //else
-            //{
-            //    Application.Run(new FormAuth());
-            //}
+            if (contains)
+            {
+                Application.Run(new Form1());
+            }
+            else
+            {
+                Application.Run(new FormAuth());
+            }
         }
     }
 }

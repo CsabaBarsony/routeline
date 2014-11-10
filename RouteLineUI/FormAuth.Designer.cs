@@ -28,23 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelExplanation = new System.Windows.Forms.Label();
+            this.labelInstallCode = new System.Windows.Forms.Label();
             this.buttonCodeOk = new System.Windows.Forms.Button();
-            this.textBoxCode = new System.Windows.Forms.TextBox();
+            this.textBoxInstallCode = new System.Windows.Forms.TextBox();
+            this.labelLicenseCode = new System.Windows.Forms.Label();
+            this.textBoxLicenseCode = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // labelExplanation
+            // labelInstallCode
             // 
-            this.labelExplanation.AutoSize = true;
-            this.labelExplanation.Location = new System.Drawing.Point(81, 70);
-            this.labelExplanation.Name = "labelExplanation";
-            this.labelExplanation.Size = new System.Drawing.Size(196, 13);
-            this.labelExplanation.TabIndex = 0;
-            this.labelExplanation.Text = "Kérem, adja meg a regisztrációs kulcsot!";
+            this.labelInstallCode.AutoSize = true;
+            this.labelInstallCode.Location = new System.Drawing.Point(76, 70);
+            this.labelInstallCode.Name = "labelInstallCode";
+            this.labelInstallCode.Size = new System.Drawing.Size(78, 13);
+            this.labelInstallCode.TabIndex = 0;
+            this.labelInstallCode.Text = "Telepítési kód:";
             // 
             // buttonCodeOk
             // 
-            this.buttonCodeOk.Location = new System.Drawing.Point(142, 146);
+            this.buttonCodeOk.Location = new System.Drawing.Point(134, 147);
             this.buttonCodeOk.Name = "buttonCodeOk";
             this.buttonCodeOk.Size = new System.Drawing.Size(75, 23);
             this.buttonCodeOk.TabIndex = 1;
@@ -52,21 +54,39 @@
             this.buttonCodeOk.UseVisualStyleBackColor = true;
             this.buttonCodeOk.Click += new System.EventHandler(this.buttonCodeOk_Click);
             // 
-            // textBoxCode
+            // textBoxInstallCode
             // 
-            this.textBoxCode.Location = new System.Drawing.Point(129, 110);
-            this.textBoxCode.Name = "textBoxCode";
-            this.textBoxCode.Size = new System.Drawing.Size(100, 20);
-            this.textBoxCode.TabIndex = 2;
+            this.textBoxInstallCode.Location = new System.Drawing.Point(160, 67);
+            this.textBoxInstallCode.Name = "textBoxInstallCode";
+            this.textBoxInstallCode.Size = new System.Drawing.Size(100, 20);
+            this.textBoxInstallCode.TabIndex = 2;
+            // 
+            // labelLicenseCode
+            // 
+            this.labelLicenseCode.AutoSize = true;
+            this.labelLicenseCode.Location = new System.Drawing.Point(91, 107);
+            this.labelLicenseCode.Name = "labelLicenseCode";
+            this.labelLicenseCode.Size = new System.Drawing.Size(63, 13);
+            this.labelLicenseCode.TabIndex = 3;
+            this.labelLicenseCode.Text = "Licenc kód:";
+            // 
+            // textBoxLicenseCode
+            // 
+            this.textBoxLicenseCode.Location = new System.Drawing.Point(160, 104);
+            this.textBoxLicenseCode.Name = "textBoxLicenseCode";
+            this.textBoxLicenseCode.Size = new System.Drawing.Size(100, 20);
+            this.textBoxLicenseCode.TabIndex = 4;
             // 
             // FormAuth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(348, 246);
-            this.Controls.Add(this.textBoxCode);
+            this.Controls.Add(this.textBoxLicenseCode);
+            this.Controls.Add(this.labelLicenseCode);
+            this.Controls.Add(this.textBoxInstallCode);
             this.Controls.Add(this.buttonCodeOk);
-            this.Controls.Add(this.labelExplanation);
+            this.Controls.Add(this.labelInstallCode);
             this.Name = "FormAuth";
             this.Text = "Regisztrációs kulcs";
             this.Load += new System.EventHandler(this.FormAuth_Load);
@@ -77,8 +97,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelExplanation;
+        private System.Windows.Forms.Label labelInstallCode;
         private System.Windows.Forms.Button buttonCodeOk;
-        private System.Windows.Forms.TextBox textBoxCode;
+        private System.Windows.Forms.TextBox textBoxInstallCode;
+        private System.Windows.Forms.Label labelLicenseCode;
+        private System.Windows.Forms.TextBox textBoxLicenseCode;
     }
 }

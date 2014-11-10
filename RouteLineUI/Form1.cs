@@ -27,6 +27,7 @@ namespace RouteLineUI
         private List<DataGridView> dataGrids;
         private ColorConverter colorConverter;
         private string labelQueryCountText;
+        private bool newQueryEditing = false;
 
         public Form1()
         {
@@ -50,8 +51,8 @@ namespace RouteLineUI
             myMap.Position = new GMap.NET.PointLatLng(46.25, 20.15);
             myMap.Overlays.Add(markerOverlay);
             panelColorSample.BackColor = colorDialogQuery.Color;
-            checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where tracking_session_id = 1000 order by ts limit 500", color = "Blue" }, true);
-            checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Red" }, true);
+            //checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where tracking_session_id = 1000 order by ts limit 500", color = "Blue" }, true);
+            //checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Red" }, true);
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -75,7 +76,7 @@ namespace RouteLineUI
                     List<Location> location = new List<Location>();
                     try
                     {
-                        location = sqlReader.readLocations(q.sql);
+                        location = sqlReader.readLocations(q.sql, textBoxQueryVariables.Text);
                     }
                     catch(Exception ex)
                     {
@@ -183,12 +184,20 @@ namespace RouteLineUI
 
         private void buttonAddQuery_Click(object sender, EventArgs e)
         {
-            checkedListBoxQueries.SelectedIndex = -1;
+            newQueryEditing = true;
+            Random rnd = new Random();
+            KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
+            KnownColor randomColorName = names[rnd.Next(names.Length)];
+            checkedListBoxQueries.Items.Add(new Query() { name = "új lekérdezés", description = "", sql = "", color = randomColorName.ToString() });
+            
             this.emptyQueryPanel();
             panelSelectedQuery.Visible = true;
             textBoxQueryName.Focus();
-            Random rnd = new Random();
+            
             panelColorSample.BackColor = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+            checkedListBoxQueries.SelectedIndex = checkedListBoxQueries.Items.Count - 1;
+            checkedListBoxQueries.SetItemChecked(checkedListBoxQueries.SelectedIndex, true);
+            textBoxQueryName.SelectAll();
         }
 
         private void buttonRemoveQuery_Click(object sender, EventArgs e)
@@ -205,25 +214,29 @@ namespace RouteLineUI
             if (MessageBox.Show("Biztosan törli az összes lekérdezést?", "Összes lekérdezés törlése", MessageBoxButtons.YesNo) == DialogResult.No) return;
             checkedListBoxQueries.Items.Clear();
             this.emptyQueryPanel();
+            textBoxQueryVariables.Text = "";
             panelSelectedQuery.Visible = false;
         }
 
         private void buttonNewQueryOk_Click(object sender, EventArgs e)
         {
-            if (textBoxQueryName.Text == "" || textBoxQueryDescription.Text == "" || textBoxQuerySql.Text == "")
+            if (textBoxQueryName.Text == "" || textBoxQuerySql.Text == "")
             {
-                MessageBox.Show("Minden mezőt ki kell tölteni!");
+                MessageBox.Show("A \"név és \"SQL mezők kitöltése kötelező!");
                 return;
             }
 
-            //foreach (Query q in checkedListBoxQueries.Items)
-            //{
-            //    if (q.name == textBoxQueryName.Text)
-            //    {
-            //        MessageBox.Show("Már létezik lekérdezés ilyen névvel: " + textBoxQueryName.Text);
-            //        return;
-            //    }
-            //}
+            if (newQueryEditing)
+            {
+                foreach (Query q in checkedListBoxQueries.Items)
+                {
+                    if (q.name == textBoxQueryName.Text)
+                    {
+                        MessageBox.Show("Már létezik lekérdezés ilyen névvel: " + textBoxQueryName.Text);
+                        return;
+                    }
+                }
+            }
 
             Query newQuery = new Query
             {
@@ -244,6 +257,7 @@ namespace RouteLineUI
 
             this.emptyQueryPanel();
             panelSelectedQuery.Visible = false;
+            newQueryEditing = false;
         }
 
         private void buttonNewQueryCancel_Click(object sender, EventArgs e)
@@ -251,6 +265,7 @@ namespace RouteLineUI
             this.emptyQueryPanel();
             panelSelectedQuery.Visible = false;
             checkedListBoxQueries.SelectedIndex = -1;
+            newQueryEditing = false;
         }
 
         private void checkedListBoxQueries_SelectedIndexChanged(object sender, EventArgs e)
@@ -333,12 +348,12 @@ namespace RouteLineUI
             openFileDialogXml.ShowDialog();
             if (openFileDialogXml.FileName != "")
             {
-                XmlSerializer reader = new XmlSerializer(typeof(List<Query>));
+                XmlSerializer reader = new XmlSerializer(typeof(SaveData));
                 StreamReader file = new StreamReader(openFileDialogXml.FileName);
-                List<Query> loadedQueries = new List<Query>();
+                SaveData loadedData = new SaveData();
                 try
                 {
-                    loadedQueries = (List<Query>)reader.Deserialize(file);
+                    loadedData = (SaveData)reader.Deserialize(file);
                 }
                 catch (InvalidOperationException ex)
                 {
@@ -348,10 +363,12 @@ namespace RouteLineUI
 
                 checkedListBoxQueries.Items.Clear();
 
-                foreach (Query q in loadedQueries)
+                foreach (Query q in loadedData.queries)
                 {
                     checkedListBoxQueries.Items.Add(q, true);
                 }
+
+                textBoxQueryVariables.Text = loadedData.variables;
 
                 this.emptyQueryPanel();
                 panelSelectedQuery.Visible = false;
@@ -365,8 +382,12 @@ namespace RouteLineUI
             if (saveFileDialogXml.FileName != "")
             {
                 FileStream fs = (FileStream)saveFileDialogXml.OpenFile();
-                XmlSerializer writer = new XmlSerializer(typeof(List<Query>));
-                writer.Serialize(fs, checkedListBoxQueries.Items.Cast<Query>().ToList());
+                XmlSerializer writer = new XmlSerializer(typeof(SaveData));
+                SaveData saveData = new SaveData(){
+                    queries = checkedListBoxQueries.Items.Cast<Query>().ToList(),
+                    variables = textBoxQueryVariables.Text
+                };
+                writer.Serialize(fs, saveData);
                 fs.Close();
             }
         }
