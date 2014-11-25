@@ -33,6 +33,10 @@ namespace RouteLineUI.Classes
                     locations.Add(Location.create(reader));
                 }
             }
+            catch (Exception ex)
+            {
+
+            }
             finally
             {
                 //conn.Close();

@@ -33,7 +33,7 @@ namespace RouteLineUI
         {
             this.markerOverlay = new GMapOverlay("markers");
             this.routesOverlay = new GMapOverlay("routes");
-            this.sqlReader = new SqlReader("Server=csabavm;Port=5432;User Id=postgres;Password=Asd..123;Database=tmcdb_production;");
+            this.sqlReader = new SqlReader("Server=csabavm;Port=5432;User Id=postgres;Password=Asd..123;Database=tmcdb_development2;");
             this.queries = new List<Query>();
             this.dataGrids = new List<DataGridView>();
             this.MouseWheel += new MouseEventHandler(MapMouseWheel);
@@ -140,7 +140,6 @@ namespace RouteLineUI
                 foreach (Route r in this.routes)
                 {
                     List<List<PointLatLng>> pointsList = new List<List<PointLatLng>>();
-                    int lastTrackingSessionId = 0;
                     int lastUserId = 0;
                     DateTime lastTimeStamp = new DateTime();
                     List<PointLatLng> points = new List<PointLatLng>();
@@ -157,7 +156,6 @@ namespace RouteLineUI
                         {
                             points = new List<PointLatLng>();
                             pointsList.Add(points);
-                            //lastTrackingSessionId = l.trackingSessionId;
                             lastUserId = l.userId;
                         }
                         lastTimeStamp = Convert.ToDateTime(l.ts);
