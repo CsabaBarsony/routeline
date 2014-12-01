@@ -22,11 +22,26 @@ namespace RouteLineUI
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
             string[] settings = config.AppSettings.Settings.AllKeys;
-            bool contains = settings.Contains("registered");
+            bool isRegistered = settings.Contains("registered");
+            bool isConfigured = true;
 
-            if (contains)
+            if (!settings.Contains("server")    ||
+                !settings.Contains("port")      ||
+                !settings.Contains("user_id")   ||
+                !settings.Contains("password")  ||
+                !settings.Contains("database")
+            ) isConfigured = false;
+
+            if (isRegistered)
             {
-                Application.Run(new Form1());
+                if (isConfigured)
+                {
+                    Application.Run(new Form1());
+                }
+                else
+                {
+                    Application.Run(new FormSettings(true));
+                }
             }
             else
             {

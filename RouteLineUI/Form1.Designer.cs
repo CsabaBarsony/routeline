@@ -36,7 +36,9 @@
             this.radioButtonMarker = new System.Windows.Forms.RadioButton();
             this.myMap = new GMap.NET.WindowsForms.GMapControl();
             this.groupBoxQueries = new System.Windows.Forms.GroupBox();
+            this.labelQueryVariables = new System.Windows.Forms.Label();
             this.labelAccuracyMeter = new System.Windows.Forms.Label();
+            this.textBoxQueryVariables = new System.Windows.Forms.TextBox();
             this.labelMinAccuracy = new System.Windows.Forms.Label();
             this.numericUpDownMinAccuracy = new System.Windows.Forms.NumericUpDown();
             this.buttonQueryDown = new System.Windows.Forms.Button();
@@ -70,8 +72,7 @@
             this.tableLayoutPanel2Columns = new System.Windows.Forms.TableLayoutPanel();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
-            this.textBoxQueryVariables = new System.Windows.Forms.TextBox();
-            this.labelQueryVariables = new System.Windows.Forms.Label();
+            this.beállításokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinAccuracy)).BeginInit();
@@ -200,6 +201,15 @@
             this.groupBoxQueries.TabStop = false;
             this.groupBoxQueries.Text = "Lekérdezések";
             // 
+            // labelQueryVariables
+            // 
+            this.labelQueryVariables.AutoSize = true;
+            this.labelQueryVariables.Location = new System.Drawing.Point(6, 452);
+            this.labelQueryVariables.Name = "labelQueryVariables";
+            this.labelQueryVariables.Size = new System.Drawing.Size(51, 13);
+            this.labelQueryVariables.TabIndex = 20;
+            this.labelQueryVariables.Text = "Változók:";
+            // 
             // labelAccuracyMeter
             // 
             this.labelAccuracyMeter.AutoSize = true;
@@ -208,6 +218,13 @@
             this.labelAccuracyMeter.Size = new System.Drawing.Size(33, 13);
             this.labelAccuracyMeter.TabIndex = 24;
             this.labelAccuracyMeter.Text = "méter";
+            // 
+            // textBoxQueryVariables
+            // 
+            this.textBoxQueryVariables.Location = new System.Drawing.Point(6, 468);
+            this.textBoxQueryVariables.Name = "textBoxQueryVariables";
+            this.textBoxQueryVariables.Size = new System.Drawing.Size(250, 20);
+            this.textBoxQueryVariables.TabIndex = 7;
             // 
             // labelMinAccuracy
             // 
@@ -440,7 +457,8 @@
             // 
             this.fájlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemLoad,
-            this.toolStripMenuItemSave});
+            this.toolStripMenuItemSave,
+            this.beállításokToolStripMenuItem});
             this.fájlToolStripMenuItem.Name = "fájlToolStripMenuItem";
             this.fájlToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fájlToolStripMenuItem.Text = "Fájl";
@@ -448,14 +466,14 @@
             // toolStripMenuItemLoad
             // 
             this.toolStripMenuItemLoad.Name = "toolStripMenuItemLoad";
-            this.toolStripMenuItemLoad.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItemLoad.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItemLoad.Text = "Betölt";
             this.toolStripMenuItemLoad.Click += new System.EventHandler(this.toolStripMenuItemLoad_Click);
             // 
             // toolStripMenuItemSave
             // 
             this.toolStripMenuItemSave.Name = "toolStripMenuItemSave";
-            this.toolStripMenuItemSave.Size = new System.Drawing.Size(105, 22);
+            this.toolStripMenuItemSave.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItemSave.Text = "Ment";
             this.toolStripMenuItemSave.Click += new System.EventHandler(this.toolStripMenuItemSave_Click);
             // 
@@ -526,21 +544,12 @@
             this.panelRight.Size = new System.Drawing.Size(702, 600);
             this.panelRight.TabIndex = 1;
             // 
-            // textBoxQueryVariables
+            // beállításokToolStripMenuItem
             // 
-            this.textBoxQueryVariables.Location = new System.Drawing.Point(6, 468);
-            this.textBoxQueryVariables.Name = "textBoxQueryVariables";
-            this.textBoxQueryVariables.Size = new System.Drawing.Size(250, 20);
-            this.textBoxQueryVariables.TabIndex = 7;
-            // 
-            // labelQueryVariables
-            // 
-            this.labelQueryVariables.AutoSize = true;
-            this.labelQueryVariables.Location = new System.Drawing.Point(6, 452);
-            this.labelQueryVariables.Name = "labelQueryVariables";
-            this.labelQueryVariables.Size = new System.Drawing.Size(51, 13);
-            this.labelQueryVariables.TabIndex = 20;
-            this.labelQueryVariables.Text = "Változók:";
+            this.beállításokToolStripMenuItem.Name = "beállításokToolStripMenuItem";
+            this.beállításokToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.beállításokToolStripMenuItem.Text = "Beállítások";
+            this.beállításokToolStripMenuItem.Click += new System.EventHandler(this.beállításokToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -553,6 +562,7 @@
             this.Name = "Form1";
             this.Text = "RouteLine";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.groupBoxDisplayType.ResumeLayout(false);
             this.groupBoxDisplayType.PerformLayout();
             this.groupBoxQueries.ResumeLayout(false);
@@ -620,6 +630,7 @@
         private System.Windows.Forms.TabControl tabControlTables;
         private System.Windows.Forms.Label labelQueryVariables;
         private System.Windows.Forms.TextBox textBoxQueryVariables;
+        private System.Windows.Forms.ToolStripMenuItem beállításokToolStripMenuItem;
 
     }
 }

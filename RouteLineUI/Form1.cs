@@ -14,31 +14,32 @@ using System.Xml.Serialization;
 using System.IO;
 using Npgsql;
 using RouteLineUI.Classes;
+using System.Configuration;
 
 namespace RouteLineUI
 {
     public partial class Form1 : Form
     {
-        private GMapOverlay markerOverlay;
-        private GMapOverlay routesOverlay;
-        private SqlReader sqlReader;
-        private List<Route> routes;
-        private List<Query> queries;
-        private List<DataGridView> dataGrids;
-        private ColorConverter colorConverter;
-        private string labelQueryCountText;
-        private bool newQueryEditing = false;
+        private GMapOverlay         markerOverlay;
+        private GMapOverlay         routesOverlay;
+        private SqlReader           sqlReader;
+        private List<Route>         routes;
+        private List<Query>         queries;
+        private List<DataGridView>  dataGrids;
+        private ColorConverter      colorConverter;
+        private string              labelQueryCountText;
+        private bool                newQueryEditing = false;
 
         public Form1()
         {
-            this.markerOverlay = new GMapOverlay("markers");
-            this.routesOverlay = new GMapOverlay("routes");
-            this.sqlReader = new SqlReader("Server=csabavm;Port=5432;User Id=postgres;Password=Asd..123;Database=tmcdb_development2;");
-            this.queries = new List<Query>();
-            this.dataGrids = new List<DataGridView>();
-            this.MouseWheel += new MouseEventHandler(MapMouseWheel);
-            this.colorConverter = new ColorConverter();
-            this.labelQueryCountText = "lekérdezett sorok: ";
+            this.markerOverlay          =  new GMapOverlay("markers");
+            this.routesOverlay          =  new GMapOverlay("routes");
+            this.queries                =  new List<Query>();
+            this.dataGrids              =  new List<DataGridView>();
+            this.MouseWheel             += new MouseEventHandler(MapMouseWheel);
+            this.colorConverter         =  new ColorConverter();
+            this.labelQueryCountText    =  "lekérdezett sorok: ";
+
             InitializeComponent();
         }
 
@@ -53,6 +54,31 @@ namespace RouteLineUI
             panelColorSample.BackColor = colorDialogQuery.Color;
             //checkedListBoxQueries.Items.Add(new Query { name = "név 1", description = "leírás 1", sql = "select * from taxi_locations where tracking_session_id = 1000 order by ts limit 500", color = "Blue" }, true);
             //checkedListBoxQueries.Items.Add(new Query { name = "név 2", description = "leírás 2", sql = "select * from taxi_locations where id > 4500 and id < 5000", color = "Red" }, true);
+
+            
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            KeyValueConfigurationCollection settings = config.AppSettings.Settings;
+            string[] settingKeys = settings.AllKeys;
+            if (!settingKeys.Contains("server")     ||
+                !settingKeys.Contains("port")       ||
+                !settingKeys.Contains("user_id")    ||
+                !settingKeys.Contains("password")   ||
+                !settingKeys.Contains("database"))
+            {
+                FormSettings formSettings = new FormSettings(true);
+                formSettings.Show();
+            }
+            this.sqlReader = new SqlReader(
+                "Server="   + settings["server"]    .Value    + ";" +
+                "Port="     + settings["port"]      .Value    + ";" +
+                "User="     + settings["user_id"]   .Value    + ";" +
+                "Password=" + settings["password"]  .Value    + ";" +
+                "Database=" + settings["database"]  .Value    + ";"
+            );
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -431,6 +457,12 @@ namespace RouteLineUI
             }
             if (marker == null) return;
             this.myMap.Position = marker.Position;
+        }
+
+        private void beállításokToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormSettings formSettings = new FormSettings(false);
+            formSettings.Show();
         }
     }
 }
