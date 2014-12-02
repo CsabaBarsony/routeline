@@ -60,25 +60,41 @@ namespace RouteLineUI
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            KeyValueConfigurationCollection settings = config.AppSettings.Settings;
-            string[] settingKeys = settings.AllKeys;
-            if (!settingKeys.Contains("server")     ||
-                !settingKeys.Contains("port")       ||
-                !settingKeys.Contains("user_id")    ||
-                !settingKeys.Contains("password")   ||
-                !settingKeys.Contains("database"))
+            //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //KeyValueConfigurationCollection settings = config.AppSettings.Settings;
+            //string[] settingKeys = settings.AllKeys;
+            //if (!settingKeys.Contains("server")     ||
+            //    !settingKeys.Contains("port")       ||
+            //    !settingKeys.Contains("user_id")    ||
+            //    !settingKeys.Contains("password")   ||
+            //    !settingKeys.Contains("database"))
+            //{
+            //    FormSettings formSettings = new FormSettings(true);
+            //    formSettings.Show();
+            //}
+            //this.sqlReader = new SqlReader(
+            //    "Server="   + settings["server"]    .Value    + ";" +
+            //    "Port="     + settings["port"]      .Value    + ";" +
+            //    "User="     + settings["user_id"]   .Value    + ";" +
+            //    "Password=" + settings["password"]  .Value    + ";" +
+            //    "Database=" + settings["database"]  .Value    + ";"
+            //);
+
+            try
             {
-                FormSettings formSettings = new FormSettings(true);
-                formSettings.Show();
-            }
-            this.sqlReader = new SqlReader(
-                "Server="   + settings["server"]    .Value    + ";" +
-                "Port="     + settings["port"]      .Value    + ";" +
-                "User="     + settings["user_id"]   .Value    + ";" +
-                "Password=" + settings["password"]  .Value    + ";" +
-                "Database=" + settings["database"]  .Value    + ";"
+                this.sqlReader = new SqlReader(
+                "Server=" + ConnectionDetails.server + ";" +
+                "Port=" + ConnectionDetails.port + ";" +
+                "User=" + ConnectionDetails.user + ";" +
+                "Password=" + ConnectionDetails.password + ";" +
+                "Database=" + ConnectionDetails.database + ";"
             );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba adatbázishoz csatlakozás közben! " + ex.Message);
+                Application.Exit();
+            }
         }
 
         private void MapMouseWheel(object sender, MouseEventArgs e)
@@ -461,6 +477,9 @@ namespace RouteLineUI
 
         private void beállításokToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Itt lehet, hogy nem is lesz Beállítások menüpont...");
+            return;
+
             FormSettings formSettings = new FormSettings(false);
             formSettings.Show();
         }

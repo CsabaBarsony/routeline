@@ -23,25 +23,10 @@ namespace RouteLineUI
 
             string[] settings = config.AppSettings.Settings.AllKeys;
             bool isRegistered = settings.Contains("registered");
-            bool isConfigured = true;
-
-            if (!settings.Contains("server")    ||
-                !settings.Contains("port")      ||
-                !settings.Contains("user_id")   ||
-                !settings.Contains("password")  ||
-                !settings.Contains("database")
-            ) isConfigured = false;
 
             if (isRegistered)
             {
-                if (isConfigured)
-                {
-                    Application.Run(new Form1());
-                }
-                else
-                {
-                    Application.Run(new FormSettings(true));
-                }
+                Application.Run(new FormSettings(true));
             }
             else
             {

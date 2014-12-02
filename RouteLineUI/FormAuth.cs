@@ -41,9 +41,9 @@ namespace RouteLineUI
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
 
-            Form1 mainForm = new Form1();
-            mainForm.Show();
-            this.Owner = mainForm;
+            FormSettings formSettings = new FormSettings(true);
+            formSettings.Show();
+            this.Owner = formSettings;
             this.Hide();
         }
     }

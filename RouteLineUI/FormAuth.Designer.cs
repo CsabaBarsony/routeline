@@ -60,6 +60,7 @@
             this.textBoxInstallCode.Name = "textBoxInstallCode";
             this.textBoxInstallCode.Size = new System.Drawing.Size(100, 20);
             this.textBoxInstallCode.TabIndex = 2;
+            this.textBoxInstallCode.Text = "?s77=mGV";
             // 
             // labelLicenseCode
             // 
@@ -76,6 +77,7 @@
             this.textBoxLicenseCode.Name = "textBoxLicenseCode";
             this.textBoxLicenseCode.Size = new System.Drawing.Size(100, 20);
             this.textBoxLicenseCode.TabIndex = 4;
+            this.textBoxLicenseCode.Text = "9790";
             // 
             // FormAuth
             // 
