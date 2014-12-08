@@ -477,11 +477,28 @@ namespace RouteLineUI
 
         private void beállításokToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void toolStripMenuItemSettings_Click(object sender, EventArgs e)
+        {
             MessageBox.Show("Itt lehet, hogy nem is lesz Beállítások menüpont...");
             return;
 
             FormSettings formSettings = new FormSettings(false);
             formSettings.Show();
+        }
+
+        private void toolStripMenuItemAbout_Click(object sender, EventArgs e)
+        {
+            FormAbout formAbout = new FormAbout();
+            formAbout.ShowDialog();
+        }
+
+        private void toolStripMenuItemHelp_Click(object sender, EventArgs e)
+        {
+            FormHelp formHelp = new FormHelp();
+            formHelp.ShowDialog();
         }
     }
 }

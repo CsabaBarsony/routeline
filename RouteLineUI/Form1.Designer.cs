@@ -72,7 +72,10 @@
             this.tableLayoutPanel2Columns = new System.Windows.Forms.TableLayoutPanel();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
-            this.beállításokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eszközökToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxDisplayType.SuspendLayout();
             this.groupBoxQueries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinAccuracy)).BeginInit();
@@ -446,7 +449,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fájlToolStripMenuItem});
+            this.fájlToolStripMenuItem,
+            this.eszközökToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(983, 24);
@@ -457,8 +461,7 @@
             // 
             this.fájlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemLoad,
-            this.toolStripMenuItemSave,
-            this.beállításokToolStripMenuItem});
+            this.toolStripMenuItemSave});
             this.fájlToolStripMenuItem.Name = "fájlToolStripMenuItem";
             this.fájlToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fájlToolStripMenuItem.Text = "Fájl";
@@ -544,12 +547,36 @@
             this.panelRight.Size = new System.Drawing.Size(702, 600);
             this.panelRight.TabIndex = 1;
             // 
-            // beállításokToolStripMenuItem
+            // eszközökToolStripMenuItem
             // 
-            this.beállításokToolStripMenuItem.Name = "beállításokToolStripMenuItem";
-            this.beállításokToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.beállításokToolStripMenuItem.Text = "Beállítások";
-            this.beállításokToolStripMenuItem.Click += new System.EventHandler(this.beállításokToolStripMenuItem_Click);
+            this.eszközökToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSettings,
+            this.toolStripMenuItemAbout,
+            this.toolStripMenuItemHelp});
+            this.eszközökToolStripMenuItem.Name = "eszközökToolStripMenuItem";
+            this.eszközökToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.eszközökToolStripMenuItem.Text = "Eszközök";
+            // 
+            // toolStripMenuItemSettings
+            // 
+            this.toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
+            this.toolStripMenuItemSettings.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSettings.Text = "Beállítások";
+            this.toolStripMenuItemSettings.Click += new System.EventHandler(this.toolStripMenuItemSettings_Click);
+            // 
+            // toolStripMenuItemAbout
+            // 
+            this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
+            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemAbout.Text = "Rólunk";
+            this.toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
+            // 
+            // toolStripMenuItemHelp
+            // 
+            this.toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
+            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemHelp.Text = "Segítség";
+            this.toolStripMenuItemHelp.Click += new System.EventHandler(this.toolStripMenuItemHelp_Click);
             // 
             // Form1
             // 
@@ -630,7 +657,10 @@
         private System.Windows.Forms.TabControl tabControlTables;
         private System.Windows.Forms.Label labelQueryVariables;
         private System.Windows.Forms.TextBox textBoxQueryVariables;
-        private System.Windows.Forms.ToolStripMenuItem beállításokToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eszközökToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSettings;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHelp;
 
     }
 }
