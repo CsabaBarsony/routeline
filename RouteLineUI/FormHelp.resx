@@ -117,4 +117,60 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>A RouteLine interaktív eszköz pozícióadatok megjelenítésére.
+
+Első indítás során a következő adatokat szükséges megadni:
+    - telepítési kód
+    - licenc kód
+    
+A kódok sikeres megadása után a Beállítások ablak jelenik meg, melyben a következő adatokat szükséges megadni:
+    - server: az adatbázist futtató számítógép (kötelező, alapbeállítás: 'localhost')
+    - port: az adatbázis eléréséhez szükséges port (kötelező, alapbeállítás: '5432')
+    - user: az adatbázis felhasználója (kötelező, alapbeállítás: 'root')
+    - database: az adatbázis neve (kötelező)
+    - password: az adatbázisba való belépéshez szükséges jelszó
+    
+A 'jelszó megjegyzése' checkbox-ot bejelölve a jelszó eltárolásra kerül. A beállítások sikeres megadását követően a program megjegyzi azokat, majd a fő ablak jelenik meg.
+
+A fő ablak három részből áll:
+    - kezelőfelület: a pozícióadatok lekérdezésének és megjelenítésének vezérlői (bal oldal)
+    - térkép: a pozícióadatok vizuális megjelenítésének helye (jobb oldal fent)
+    - táblázat: a pozícióadatok értékeinek megjelenítése (jobb oldal lent)
+    
+Minden pozíciómegjelenítés több lekérdezésből állhat. Új lekérdezés létrehozása a 'Hozzáad' gombbal történik. A 'Név' és 'SQL' mezők kitöltése kötelező, a 'Leírás' opcionális. A lekérdezésnek szabályos SQL lekérdezésnek kell lennie. A 'Szín' gombbal megadható a markerek illetve vonalak színe. 'OK' gombbal menthető, 'Mégse' gombbal elvethető az adott lekérdezés.
+
+A lekérdezések egy listába kerülnek, a listaelemek egyenként kiválaszthatók, csak a kiválasztottak kerülnek megjelenítésre. A kiválasztott listaelem pozíciója a 'Fel' és 'Le' gombokkal változtatható, erre leginkább azért van szükség, mert több lekérdezés esetében mindig a sorban később jövő lekérdezés kerül a térképen felülre. Az 'Elvesz' gombbal a kiválasztott listaelem eltávolítható. A 'Töröl' gombbal az egész lista eltávolítható. A 'Klónoz' gombbal másolat készíthető a kiválasztott listaelemről.
+
+Kétféle megjelenítés lehetséges:
+    - marker
+    - vonal
+    
+'Marker' esetében minden egyes pozíciót egy, a lekérdezés opcióinál meghatározott színű kör jelez. 'Vonal' esetében az összetartozó helyadatok (egy user egy tracking session-je, melynek adatai időben egymás után következnek) összekötésre kerülnek.
+
+'Pontosság' mező segítségével megadható az a minimális pontosság, aminél kevésbé pontos adatok nem kerülnek megjelenítésre.
+
+'Változók' mező segítségével előre definiált értékeket használhatunk az SQL lekérdezésekben. A 'Változók' mezőben a következő formátumban kell megadni az értékeket: [név1]=[érték1];[név2]=[érték2]; (A név és érték egymástól egyenlőségjellel, a változók egymástól pontosvesszővel elválasztva, szóköz nélkül)
+
+Az SQL lekérdezésben a változókat a nevük elé a '$' (dollár) karaktert illesztve használhatók. (Pl.: $felhasznalo)
+
+Egy definiált változó a listában szereplő összes lekérdezésre érvényes.
+
+
+Példa:
+
+Minden lekérdezésben szeretnénk ugyanazt a felhasználó azonosítót és időbélyeget használni. A 'Változók' mezőbe a következő érték kerül:
+
+user_id=8;ts='2014.01.01'
+
+Ezután bármelyik lekérdezésben a '$user_id' vagy a '$ts' feltűnik, a 'Változók'-ban megadott érték kerül behelyettesítésre. Például a
+
+SELECT * FROM my_table where user_id = $user_id and time = $ts
+
+lekérdezés behelyettesítés után a következő lesz:
+
+SELECT * FROM my_table where user_id = 8 and time = '2014.01.01'
+
+A lekérdezések szerkesztése után a 'Mutat' gombbal lehet a markereket illetve útvonalakat kirajzolni, illetve adatokat megjeleníteni.</value>
+  </data>
 </root>

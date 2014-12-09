@@ -60,7 +60,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(238)))), ((int)(((byte)(241)))));
-            this.ClientSize = new System.Drawing.Size(383, 324);
+            this.ClientSize = new System.Drawing.Size(379, 324);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelInstantweb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
