@@ -68,7 +68,6 @@
             this.toolStripMenuItemLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.eszközökToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainerMapAndTable = new System.Windows.Forms.SplitContainer();
@@ -484,32 +483,24 @@
             // eszközökToolStripMenuItem
             // 
             this.eszközökToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemSettings,
             this.toolStripMenuItemAbout,
             this.toolStripMenuItemHelp});
             this.eszközökToolStripMenuItem.Name = "eszközökToolStripMenuItem";
             this.eszközökToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.eszközökToolStripMenuItem.Text = "Eszközök";
             // 
-            // toolStripMenuItemSettings
-            // 
-            this.toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
-            this.toolStripMenuItemSettings.Size = new System.Drawing.Size(130, 22);
-            this.toolStripMenuItemSettings.Text = "Beállítások";
-            this.toolStripMenuItemSettings.Click += new System.EventHandler(this.toolStripMenuItemSettings_Click);
-            // 
             // toolStripMenuItemAbout
             // 
             this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
-            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(130, 22);
-            this.toolStripMenuItemAbout.Text = "Rólunk";
+            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(188, 22);
+            this.toolStripMenuItemAbout.Text = "A RouteLine névjegye";
             this.toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
             // 
             // toolStripMenuItemHelp
             // 
             this.toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
-            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(130, 22);
-            this.toolStripMenuItemHelp.Text = "Segítség";
+            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(188, 22);
+            this.toolStripMenuItemHelp.Text = "Súgó";
             this.toolStripMenuItemHelp.Click += new System.EventHandler(this.toolStripMenuItemHelp_Click);
             // 
             // splitContainerMapAndTable
@@ -659,7 +650,6 @@
         private System.Windows.Forms.Label labelQueryVariables;
         private System.Windows.Forms.TextBox textBoxQueryVariables;
         private System.Windows.Forms.ToolStripMenuItem eszközökToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSettings;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHelp;
 

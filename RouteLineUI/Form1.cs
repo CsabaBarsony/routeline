@@ -136,80 +136,87 @@ namespace RouteLineUI
 
             tabControlTables.TabPages.Clear();
 
-            foreach (Route r in routes)
+            try
             {
-                DataGridView dataGridView = new DataGridView();
-                BindingSource source = new BindingSource();
-                dataGridView.DataSource = source;
-                dataGridView.Dock = DockStyle.Fill;
-                dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
-                dataGridView.CellClick += new DataGridViewCellEventHandler(this.dataGrid_CellClick);
-                dataGrids.Add(dataGridView);
-                TabPage tabPage = new TabPage(r.name);
-                tabPage.Controls.Add(dataGridView);
-                tabControlTables.TabPages.Add(tabPage);
-
-                foreach (Location l in r.locations)
+                foreach (Route r in routes)
                 {
-                    source.Add(l);
-                }
-            }
+                    DataGridView dataGridView = new DataGridView();
+                    BindingSource source = new BindingSource();
+                    dataGridView.DataSource = source;
+                    dataGridView.Dock = DockStyle.Fill;
+                    dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+                    dataGridView.CellClick += new DataGridViewCellEventHandler(this.dataGrid_CellClick);
+                    dataGrids.Add(dataGridView);
+                    TabPage tabPage = new TabPage(r.name);
+                    tabPage.Controls.Add(dataGridView);
+                    tabControlTables.TabPages.Add(tabPage);
 
-            labelQueryCount.Text = labelQueryCountText + rowCount.ToString();
-            buttonSqlOk.Text = "Mutat";
-            buttonSqlOk.Enabled = true;
-
-            if (radioButtonMarker.Checked)
-            {
-                foreach (Route r in this.routes)
-                {
-                    Bitmap m = new Bitmap(10, 10);
-                    Graphics g = Graphics.FromImage(m);
-                    Color color = (Color)colorConverter.ConvertFromString(r.query.color);
-                    Brush brush = new SolidBrush(color);
-                    g.FillEllipse(brush, 0f, 0f, 10f, 10f);
                     foreach (Location l in r.locations)
                     {
-                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) continue;
-                        Marker marker = new Marker(new PointLatLng(l.lat, l.lon), m, l.id, r);
-                        markerOverlay.Markers.Add(marker);
+                        source.Add(l);
+                    }
+                }
+
+                labelQueryCount.Text = labelQueryCountText + rowCount.ToString();
+                buttonSqlOk.Text = "Mutat";
+                buttonSqlOk.Enabled = true;
+
+                if (radioButtonMarker.Checked)
+                {
+                    foreach (Route r in this.routes)
+                    {
+                        Bitmap m = new Bitmap(10, 10);
+                        Graphics g = Graphics.FromImage(m);
+                        Color color = (Color)colorConverter.ConvertFromString(r.query.color);
+                        Brush brush = new SolidBrush(color);
+                        g.FillEllipse(brush, 0f, 0f, 10f, 10f);
+                        foreach (Location l in r.locations)
+                        {
+                            if (l.accuracy > (double)numericUpDownMinAccuracy.Value) continue;
+                            Marker marker = new Marker(new PointLatLng(l.lat, l.lon), m, l.id, r);
+                            markerOverlay.Markers.Add(marker);
+                        }
+                    }
+                }
+                else if (radioButtonLine.Checked)
+                {
+                    foreach (Route r in this.routes)
+                    {
+                        List<List<PointLatLng>> pointsList = new List<List<PointLatLng>>();
+                        int lastUserId = 0;
+                        DateTime lastTimeStamp = new DateTime();
+                        List<PointLatLng> points = new List<PointLatLng>();
+                        pointsList.Add(points);
+                        foreach (Location l in r.locations)
+                        {
+                            if (l.accuracy > (double)numericUpDownMinAccuracy.Value) continue;
+                            TimeSpan ts = Convert.ToDateTime(l.ts) - lastTimeStamp;
+                            if (ts.TotalSeconds < 60.0 && lastUserId == l.userId)
+                            {
+                                points.Add(new PointLatLng(l.lat, l.lon));
+                            }
+                            else
+                            {
+                                points = new List<PointLatLng>();
+                                pointsList.Add(points);
+                                lastUserId = l.userId;
+                            }
+                            lastTimeStamp = Convert.ToDateTime(l.ts);
+                        }
+                        GMapRoute route;
+                        foreach (List<PointLatLng> p in pointsList)
+                        {
+                            route = new GMapRoute(p, "myRoute");
+                            route.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 2f);
+                            markerOverlay.Routes.Add(route);
+                        }
                     }
                 }
             }
-            else if (radioButtonLine.Checked)
+            catch (OutOfMemoryException ex)
             {
-                foreach (Route r in this.routes)
-                {
-                    List<List<PointLatLng>> pointsList = new List<List<PointLatLng>>();
-                    int lastUserId = 0;
-                    DateTime lastTimeStamp = new DateTime();
-                    List<PointLatLng> points = new List<PointLatLng>();
-                    pointsList.Add(points);
-                    foreach (Location l in r.locations)
-                    {
-                        if (l.accuracy > (double)numericUpDownMinAccuracy.Value) continue;
-                        TimeSpan ts = Convert.ToDateTime(l.ts) - lastTimeStamp;
-                        if (ts.TotalSeconds < 60.0 && lastUserId == l.userId)
-                        {
-                            points.Add(new PointLatLng(l.lat, l.lon));
-                        }
-                        else
-                        {
-                            points = new List<PointLatLng>();
-                            pointsList.Add(points);
-                            lastUserId = l.userId;
-                        }
-                        lastTimeStamp = Convert.ToDateTime(l.ts);
-                    }
-                    GMapRoute route;
-                    foreach (List<PointLatLng> p in pointsList)
-                    {
-                        route = new GMapRoute(p, "myRoute");
-                        route.Stroke = new Pen((Color)colorConverter.ConvertFromString(r.query.color), 2f);
-                        markerOverlay.Routes.Add(route);
-                    }
-                }
+                MessageBox.Show("A lekérdezés során elfogyott a rendelkezésre álló memória.");
             }
         }
 

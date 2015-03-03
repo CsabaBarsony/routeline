@@ -65,7 +65,7 @@
             this.Controls.Add(this.labelInstantweb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormAbout";
-            this.Text = "Rólunk";
+            this.Text = "Névjegy";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

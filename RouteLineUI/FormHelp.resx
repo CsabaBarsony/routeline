@@ -165,11 +165,11 @@ user_id=8;ts='2014.01.01'
 
 Ezután bármelyik lekérdezésben a '$user_id' vagy a '$ts' feltűnik, a 'Változók'-ban megadott érték kerül behelyettesítésre. Például a
 
-SELECT * FROM my_table where user_id = $user_id and time = $ts
+SELECT * FROM my_table WHERE user_id = $user_id AND time = $ts
 
 lekérdezés behelyettesítés után a következő lesz:
 
-SELECT * FROM my_table where user_id = 8 and time = '2014.01.01'
+SELECT * FROM my_table WHERE user_id = 8 AND time = '2014.01.01'
 
 A lekérdezések szerkesztése után a 'Mutat' gombbal lehet a markereket illetve útvonalakat kirajzolni, illetve adatokat megjeleníteni.</value>
   </data>
